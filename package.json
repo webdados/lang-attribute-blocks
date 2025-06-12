@@ -1,0 +1,18 @@
+{
+  "name": "lang-attribute-blocks",
+  "version": "1.0.0",
+  "description": "",
+	"author": "Naked Cat Plugins (by Webdados)",
+	"license": "GPL-3.0-or-later",
+  "main": "index.js",
+  "scripts": {
+	"build": "wp-scripts build --webpack-src-dir=assets --output-path=build",
+	"start": "wp-scripts start --webpack-src-dir=assets --output-path=build",
+	"plugin-zip": "wp-scripts plugin-zip",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@wordpress/scripts": "^26.19.0"
+  }
+}
