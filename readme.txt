@@ -30,15 +30,17 @@ Both assistive technologies and conventional user agents can render text more ac
 
 This is especially important when switching between languages that read from left to right and languages that read from right to left, or when text is rendered in a language that uses a different alphabet. Users with disabilities who know all the languages used in the Web page will be better able to understand the content when each passage is rendered appropriately.
 
+Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).
 
 == Screenshots ==
 
-1. 
+1. Using the block editor to add a language attribute to a Group block
+2. The lang and dir attributes rendered on the frontend
 
 == Installation ==
 
 1. Install the plugin and activate it.
-2. Insert a Group or Column block and use the "Language Settings" sidebar panel, to set the language for all the content inside that container
+2. Insert a Group or Columns block and use the "Language Settings" sidebar panel, to set the language for all the content inside that container
 
 == Changelog ==
 
