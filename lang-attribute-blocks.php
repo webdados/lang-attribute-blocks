@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:          Language attribute for container Blocks
+ * Plugin Name:          Language Attribute for Container Blocks
  * Plugin URI:
  * Description:          Add "lang" and "dir" attributes on Group and Columns WordPress Blocks
  * Version:              1.0
@@ -76,7 +76,8 @@ function enqueue_block_editor_assets() {
 		'lang-attribute-blocks-script',
 		'langAttributeBlocks',
 		array(
-			'supportedBlocks' => LANG_ATTRIBUTE_BLOCKS_BLOCKS
+			'supportedBlocks' => LANG_ATTRIBUTE_BLOCKS_BLOCKS,
+			'siteLanguage'    => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US')
 		)
 	);
 

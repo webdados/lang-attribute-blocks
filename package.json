@@ -8,6 +8,7 @@
   "scripts": {
 	"build": "wp-scripts build --webpack-src-dir=assets --output-path=build",
 	"start": "wp-scripts start --webpack-src-dir=assets --output-path=build",
+  "make-pot": "wp i18n make-pot . languages/lang-attribute-blocks.pot --slug=lang-attribute-blocks --domain=lang-attribute-blocks --exclude=node_modules",
 	"plugin-zip": "wp-scripts plugin-zip",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

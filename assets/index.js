@@ -49,7 +49,8 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 							label={ __( 'Language Code', 'lang-attribute-blocks' ) }
 							value={ lang }
 							onChange={ ( value ) => setAttributes( { lang: value } ) }
-							help={ __( 'Valid language code, like "en" or "fr".', 'lang-attribute-blocks' ) }
+							placeholder={ window.langAttributeBlocks?.siteLanguage || 'en' }
+							help={ __( 'Valid language code, like "pt" or "fr", if different from the website main language (shown as a placeholder)', 'lang-attribute-blocks' ) }
 						/>
 						<SelectControl
 							label={ __( 'Text Direction', 'lang-attribute-blocks' ) }

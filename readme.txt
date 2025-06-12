@@ -1,4 +1,4 @@
-=== Language attribute for container Blocks ===
+=== Language Attribute for Container Blocks ===
 Contributors: nakedcatplugins, webdados
 Tags: language, accessibility, block editor
 Requires at least: 5.9
