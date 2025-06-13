@@ -2,15 +2,11 @@
  * Adds language attributes to container blocks
  */
 
-import { __ } from '@wordpress/i18n';
-
 import './index.scss';
 
-import { BlockControls, RichTextToolbarButton, InspectorControls } from '@wordpress/block-editor';
-import { TextControl, SelectControl, Button, Popover, PanelBody } from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { registerFormatType, applyFormat, removeFormat, useAnchorRef } from '@wordpress/rich-text';
-import { ENTER } from '@wordpress/keycodes';
+import { __ } from '@wordpress/i18n';
+import { InspectorControls } from '@wordpress/block-editor';
+import { TextControl, SelectControl, PanelBody } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 
