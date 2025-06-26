@@ -42,8 +42,14 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 1. Install the plugin and activate it.
 2. Insert a Group or Columns block and use the “Language Settings” sidebar panel, to set the language for all the content inside that container
 
+== Frequently Asked Questions ==
+
+= How can I contribute to this plugin? =
+
+[On GitHub](https://github.com/webdados/lang-attribute-blocks)
+
 == Changelog ==
 
 = 1.0 =
 
-* First commit
+* First release

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-12T13:38:02+00:00\n"
+"POT-Creation-Date: 2025-06-26T07:28:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: lang-attribute-blocks\n"
@@ -34,38 +34,32 @@ msgstr ""
 msgid "https://nakedcatplugins.com"
 msgstr ""
 
-#: assets/index.js:45
-#: build/index.js:238
-#: build/index.js:105
+#: assets/index.js:41
+#: build/index.js:1
 msgid "Language Settings"
 msgstr ""
 
-#: assets/index.js:49
-#: build/index.js:241
-#: build/index.js:109
+#: assets/index.js:45
+#: build/index.js:1
 msgid "Language Code"
 msgstr ""
 
-#: assets/index.js:53
-#: build/index.js:247
-#: build/index.js:113
+#: assets/index.js:49
+#: build/index.js:1
 msgid "Valid language code, like \"pt\" or \"fr\", if different from the website main language (shown as a placeholder)"
 msgstr ""
 
-#: assets/index.js:56
-#: build/index.js:249
-#: build/index.js:116
+#: assets/index.js:52
+#: build/index.js:1
 msgid "Text Direction"
 msgstr ""
 
-#: assets/index.js:59
-#: build/index.js:252
-#: build/index.js:119
+#: assets/index.js:55
+#: build/index.js:1
 msgid "Left to right"
 msgstr ""
 
-#: assets/index.js:60
-#: build/index.js:255
-#: build/index.js:120
+#: assets/index.js:56
+#: build/index.js:1
 msgid "Right to left"
 msgstr ""
