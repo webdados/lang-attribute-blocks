@@ -18,11 +18,11 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 	return ( props ) => {
 		// Only for supported blocks
 		if (
-			window.langAttributeBlocks
+			window.nakedCatPluginsLangAttributeBlocks
 			&&
-			window.langAttributeBlocks.supportedBlocks
+			window.nakedCatPluginsLangAttributeBlocks.supportedBlocks
 			&& 
-			! window.langAttributeBlocks.supportedBlocks.includes( props.name )
+			! window.nakedCatPluginsLangAttributeBlocks.supportedBlocks.includes( props.name )
 		) {
 			return <BlockEdit { ...props } />;
 		}
@@ -45,7 +45,7 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 							label={ __( 'Language Code', 'lang-attribute-blocks' ) }
 							value={ lang }
 							onChange={ ( value ) => setAttributes( { lang: value } ) }
-							placeholder={ window.langAttributeBlocks?.siteLanguage || 'en' }
+							placeholder={ window.nakedCatPluginsLangAttributeBlocks?.siteLanguage || 'en' }
 							help={ __( 'Valid language code, like "pt" or "fr", if different from the website main language (shown as a placeholder)', 'lang-attribute-blocks' ) }
 						/>
 						<SelectControl
@@ -74,11 +74,11 @@ addFilter(
 function addListBlockClassName( settings, name ) {
 	// Only for supported blocks
 	if (
-		window.langAttributeBlocks
+		window.nakedCatPluginsLangAttributeBlocks
 		&&
-		window.langAttributeBlocks.supportedBlocks
+		window.nakedCatPluginsLangAttributeBlocks.supportedBlocks
 		&& 
-		window.langAttributeBlocks.supportedBlocks.includes( name )
+		window.nakedCatPluginsLangAttributeBlocks.supportedBlocks.includes( name )
 	) {
 		// Add custom attributes for lang and dir
 		settings.attributes = {

@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @type array
  */
 define(
-	'LANG_ATTRIBUTE_BLOCKS_BLOCKS',
+	'NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS',
 	array(
 		'core/group',
 		'core/columns',
@@ -64,7 +64,7 @@ function enqueue_block_editor_assets() {
 
 	// Enqueue the main JavaScript file for the block editor
 	wp_enqueue_script(
-		'lang-attribute-blocks-script',
+		'nakedcatplugins-lang-attribute-blocks-script',
 		plugins_url( 'build/index.js', __FILE__ ),
 		array( 'wp-blocks', 'wp-dom', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-i18n', 'wp-block-editor' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' ),
@@ -73,10 +73,10 @@ function enqueue_block_editor_assets() {
 
 	// Localize script to pass the blocks array to JavaScript
 	wp_localize_script(
-		'lang-attribute-blocks-script',
-		'langAttributeBlocks',
+		'nakedcatplugins-lang-attribute-blocks-script',
+		'nakedCatPluginsLangAttributeBlocks',
 		array(
-			'supportedBlocks' => LANG_ATTRIBUTE_BLOCKS_BLOCKS,
+			'supportedBlocks' => NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS,
 			'siteLanguage'    => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US')
 		)
 	);
@@ -86,7 +86,7 @@ function enqueue_block_editor_assets() {
 
 	// Enqueue the CSS styles for the block editor
 	wp_enqueue_style(
-		'lang-attribute-blocks-style',
+		'nakedcatplugins-lang-attribute-blocks-style',
 		plugins_url( 'build/index.css', __FILE__ ),
 		array(),
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/index.css' )
@@ -98,7 +98,7 @@ add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_edito
  * Register block attributes for language settings.
  *
  * This function adds custom 'lang' and 'dir' attributes to specified WordPress blocks
- * defined in the LANG_ATTRIBUTE_BLOCKS_BLOCKS constant. These attributes allow users
+ * defined in the NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS constant. These attributes allow users
  * to set language-specific properties on block elements:
  *
  * - 'lang': Specifies the language code (e.g., 'en', 'fr', 'es')
@@ -111,7 +111,7 @@ add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_edito
  * @return array Modified arguments with added language attributes if applicable.
  */
 function register_block_attributes( $args, $block_type ) {
-	if ( in_array( $block_type, LANG_ATTRIBUTE_BLOCKS_BLOCKS, true ) ) {
+	if ( in_array( $block_type, NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS, true ) ) {
 		$args['attributes']['lang'] = array(
 			'type'    => 'string',
 			'default' => '',
@@ -155,7 +155,7 @@ function process_blocks( $block_content, $block ) {
 	}
 	return $block_content;
 }
-foreach ( LANG_ATTRIBUTE_BLOCKS_BLOCKS as $block_name ) {
+foreach ( NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS as $block_name ) {
 	add_filter( 'render_block_' . $block_name, __NAMESPACE__ . '\process_blocks', 10, 2 );
 }
 
