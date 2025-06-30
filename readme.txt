@@ -8,7 +8,7 @@ Stable tag: 1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Add "lang" and "dir" attributes on Group, Columns, and Cover WordPress Blocks.
+Add “lang” and “dir” attributes on Group, Columns, and Cover WordPress Blocks.
 
 == Description ==
 
@@ -29,6 +29,8 @@ This makes it possible for user agents and assistive technologies to present con
 Both assistive technologies and conventional user agents can render text more accurately if the language of each passage of text is identified. Screen readers can use the pronunciation rules of the language of the text. Visual browsers can display characters and scripts in appropriate ways.
 
 This is especially important when switching between languages that read from left to right and languages that read from right to left, or when text is rendered in a language that uses a different alphabet. Users with disabilities who know all the languages used in the Web page will be better able to understand the content when each passage is rendered appropriately.
+
+That’s not just good for accessibility. It’s also great for SEO. Search engines like Google can better understand your content when languages are clearly defined. That means improved indexing and potentially better rankings.
 
 Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).
 

@@ -1,6 +1,6 @@
 # Language Attribute for Container Blocks
 
-A WordPress plugin that adds "lang" and "dir" attributes to Group, Columns, and Cover blocks for improved accessibility.
+A WordPress plugin that adds “lang” and “dir” attributes to Group, Columns, and Cover blocks for improved accessibility.
 
 ## Description
 
