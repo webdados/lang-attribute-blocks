@@ -46,7 +46,7 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 							value={ lang }
 							onChange={ ( value ) => setAttributes( { lang: value } ) }
 							placeholder={ window.nakedCatPluginsLangAttributeBlocks?.siteLanguage || 'en' }
-							help={ __( 'Valid language code, like "pt" or "fr", if different from the website main language (shown as a placeholder)', 'lang-attribute-blocks' ) }
+							help={ __( 'Valid language code, like “fr” or “pt-PT”, if different from the website main language (shown as a placeholder)', 'lang-attribute-blocks' ) }
 						/>
 						<SelectControl
 							label={ __( 'Text Direction', 'lang-attribute-blocks' ) }
