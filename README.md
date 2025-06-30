@@ -49,6 +49,6 @@ This plugin provides a way to ensure that any language change in the content of 
 - `npm run start` - Start development mode with file watching
 - `npm run build` - Create production build
 
-## Where do I report security vulnerabilities found in this plugin?
- 
-You can report any security bugs found in the source code of this plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/wordpress/plugin/lang-attribute-blocks/vdp). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
+## How can I report security bugs?
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/ce04f590-44d9-45f3-9411-9028e87d4725 )
