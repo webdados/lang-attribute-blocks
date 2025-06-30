@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Language Attribute for Container Blocks 1.0\n"
+"Project-Id-Version: Language Attribute for Container Blocks 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/lang-attribute-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-26T07:28:49+00:00\n"
+"POT-Creation-Date: 2025-06-30T08:47:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: lang-attribute-blocks\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #. Description of the plugin
 #: lang-attribute-blocks.php
-msgid "Add \"lang\" and \"dir\" attributes on Group and Columns WordPress Blocks"
+msgid "Add \"lang\" and \"dir\" attributes on Group, Columns, and Cover WordPress Blocks"
 msgstr ""
 
 #. Author of the plugin
@@ -35,31 +35,37 @@ msgid "https://nakedcatplugins.com"
 msgstr ""
 
 #: assets/index.js:41
-#: build/index.js:1
+#: build/index.js:199
+#: build/index.js:98
 msgid "Language Settings"
 msgstr ""
 
 #: assets/index.js:45
-#: build/index.js:1
+#: build/index.js:202
+#: build/index.js:102
 msgid "Language Code"
 msgstr ""
 
 #: assets/index.js:49
-#: build/index.js:1
+#: build/index.js:208
+#: build/index.js:106
 msgid "Valid language code, like \"pt\" or \"fr\", if different from the website main language (shown as a placeholder)"
 msgstr ""
 
 #: assets/index.js:52
-#: build/index.js:1
+#: build/index.js:210
+#: build/index.js:109
 msgid "Text Direction"
 msgstr ""
 
 #: assets/index.js:55
-#: build/index.js:1
+#: build/index.js:213
+#: build/index.js:112
 msgid "Left to right"
 msgstr ""
 
 #: assets/index.js:56
-#: build/index.js:1
+#: build/index.js:216
+#: build/index.js:113
 msgid "Right to left"
 msgstr ""

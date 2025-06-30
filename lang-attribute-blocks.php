@@ -2,8 +2,8 @@
 /**
  * Plugin Name:          Language Attribute for Container Blocks
  * Plugin URI:
- * Description:          Add "lang" and "dir" attributes on Group and Columns WordPress Blocks
- * Version:              1.0
+ * Description:          Add "lang" and "dir" attributes on Group, Columns, and Cover WordPress Blocks
+ * Version:              1.1
  * Author:               Naked Cat Plugins (by Webdados)
  * Author URI:           https://nakedcatplugins.com
  * Text Domain:          lang-attribute-blocks
@@ -27,7 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * extend with language and direction attributes. Currently supports:
  *
  * - 'core/group': The standard WordPress Group block (and all it's variations)
+ * - 'core/columns': The Columns block, which allows for multi-column layouts
  * - 'core/column': The Column block used within the Columns block
+ * - 'core/cover': The Cover block, which allows for full-width background images and text
  *
  * This constant is used throughout the plugin to determine which blocks
  * should receive the language attribute functionality.
@@ -41,6 +43,7 @@ define(
 		'core/group',
 		'core/columns',
 		'core/column',
+		'core/cover',
 	)
 );
 
