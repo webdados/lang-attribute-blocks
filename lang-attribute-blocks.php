@@ -3,7 +3,7 @@
  * Plugin Name:          Language Attribute for Container Blocks
  * Plugin URI:
  * Description:          Add “lang” and “dir” attributes on Group, Columns, and Cover WordPress Blocks
- * Version:              1.1
+ * Version:              1.2
  * Author:               Naked Cat Plugins (by Webdados)
  * Author URI:           https://nakedcatplugins.com
  * Text Domain:          lang-attribute-blocks
@@ -79,8 +79,9 @@ function enqueue_block_editor_assets() {
 		'nakedcatplugins-lang-attribute-blocks-script',
 		'nakedCatPluginsLangAttributeBlocks',
 		array(
-			'supportedBlocks' => NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS,
-			'siteLanguage'    => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US')
+			'supportedBlocks'  => NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS,
+			'siteLanguage'     => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US'),
+			'highlightEnabled' => get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false ),
 		)
 	);
 
@@ -96,6 +97,32 @@ function enqueue_block_editor_assets() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_editor_assets' );
+
+/**
+ * Enqueues CSS assets for the frontend.
+ *
+ * This function loads the plugin's CSS styles on the frontend to provide
+ * visual highlighting of blocks with language attributes.
+ *
+ * @since 1.2
+ * @hook wp_enqueue_scripts
+ * @return void
+ */
+function enqueue_frontend_assets() {
+	// Enqueue the CSS styles for the frontend
+	if ( current_user_can( 'edit_others_posts' ) ) {
+		$highlight_enabled = get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false );
+		if ( $highlight_enabled ) {
+			wp_enqueue_style(
+				'nakedcatplugins-lang-attribute-blocks-style',
+				plugins_url( 'build/index.css', __FILE__ ),
+				array(),
+				filemtime( plugin_dir_path( __FILE__ ) . 'build/index.css' )
+			);
+		}
+	}
+}
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_frontend_assets' );
 
 /**
  * Register block attributes for language settings.
@@ -162,5 +189,96 @@ foreach ( NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_BLOCKS as $block_name ) {
 	add_filter( 'render_block_' . $block_name, __NAMESPACE__ . '\process_blocks', 10, 2 );
 }
 
+/**
+ * Add settings section to Settings > Writing page.
+ *
+ * This function registers a new settings section for the Language Attribute Blocks
+ * plugin on the WordPress Settings > Writing admin page.
+ *
+ * @since 1.2
+ * @hook admin_init
+ * @return void
+ */
+function add_writing_settings() {
+	// Register the setting
+	register_setting(
+		'writing',
+		'nakedcatplugins_lang_attr_highlight_blocks',
+		array(
+			'type'              => 'boolean',
+			'default'           => false,
+			'sanitize_callback' => 'rest_sanitize_boolean',
+		)
+	);
+
+	// Add settings section
+	add_settings_section(
+		'nakedcatplugins_lang_attr_section',
+		__( 'Language Attribute for Container Blocks', 'lang-attribute-blocks' ),
+		__NAMESPACE__ . '\settings_section_callback',
+		'writing'
+	);
+
+	// Add settings field
+	add_settings_field(
+		'nakedcatplugins_lang_attr_highlight_blocks',
+		__( 'Highlight blocks with lang attribute', 'lang-attribute-blocks' ),
+		__NAMESPACE__ . '\highlight_blocks_field_callback',
+		'writing',
+		'nakedcatplugins_lang_attr_section'
+	);
+}
+add_action( 'admin_init', __NAMESPACE__ . '\add_writing_settings' );
+
+/**
+ * Settings section callback.
+ *
+ * @since 1.2
+ * @return void
+ */
+function settings_section_callback() {
+	echo '<p>' . esc_html__( 'Configure Language Attribute for Container Blocks plugin settings.', 'lang-attribute-blocks' ) . '</p>';
+}
+
+/**
+ * Highlight blocks field callback.
+ *
+ * @since 1.2
+ * @return void
+ */
+function highlight_blocks_field_callback() {
+	$option = get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false );
+	?>
+	<label for="nakedcatplugins_lang_attr_highlight_blocks">
+		<input type="checkbox" id="nakedcatplugins_lang_attr_highlight_blocks" name="nakedcatplugins_lang_attr_highlight_blocks" value="1" <?php checked( $option, true ); ?> />
+		<?php esc_html_e( 'Show visual outline around blocks that have a language attribute set', 'lang-attribute-blocks' ); ?>
+	</label>
+	<p class="description">
+		<?php esc_html_e( 'When enabled, blocks with a language attribute will be visually highlighted with a red dashed outline in both the editor and frontend (only for Administrators and Editors).', 'lang-attribute-blocks' ); ?>
+	</p>
+	<?php
+}
+
+/**
+ * Add settings link to the plugin action links.
+ *
+ * This function adds a "Settings" link to the plugin's row on the Plugins page
+ * that points to the Language Attribute for Container Blocks settings section
+ * on the Settings > Writing page.
+ *
+ * @since 1.2
+ * @param array $links Existing plugin action links.
+ * @return array Modified plugin action links with settings link added.
+ */
+function add_plugin_action_links( $links ) {
+	$settings_link = sprintf(
+		'<a href="%s">%s</a>',
+		admin_url( 'options-writing.php' ),
+		esc_html__( 'Settings', 'lang-attribute-blocks' )
+	);
+	array_unshift( $links, $settings_link );
+	return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), __NAMESPACE__ . '\add_plugin_action_links' );
 
 /* If you're reading this you must know what you're doing ;-) Greetings from sunny Portugal! */

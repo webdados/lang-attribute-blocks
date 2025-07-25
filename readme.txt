@@ -4,7 +4,7 @@ Tags: language, accessibility, block editor
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,6 +34,10 @@ That’s not just good for accessibility. It’s also great for SEO. Search engi
 
 Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).
 
+== Features ==
+* Add “lang” and “dir” attributes on Group, Columns, and Cover WordPress Blocks
+* Show visual outline around blocks that have a language attribute set - For easy identification, only for Administrators and Editors and if enabled in Settings > Writting
+
 == Screenshots ==
 
 1. Using the block editor to add a language attribute to a Group block
@@ -55,6 +59,9 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/ce04f590-44d9-45f3-9411-9028e87d4725 )
 
 == Changelog ==
+
+= 1.2 - 2025-07-25 =
+* [NEW] Show visual outline around blocks that have a language attribute set - For easy identification, only for Administrators and Editors and if enabled in Settings > Writting
 
 = 1.1 =
 

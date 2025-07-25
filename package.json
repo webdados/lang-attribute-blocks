@@ -1,12 +1,12 @@
 {
 	"name": "lang-attribute-blocks",
-	"version": "1.0.0",
+	"version": "1.2.0",
 	"description": "",
 	"author": "Naked Cat Plugins (by Webdados)",
 	"license": "GPL-3.0-or-later",
 	"main": "index.js",
 	"scripts": {
-		"build": "wp-scripts build --webpack-src-dir=assets --output-path=build && npm run copy-index",
+		"build": "wp-scripts build --webpack-src-dir=assets --output-path=build && npm run copy-index && npm run make-pot",
 		"start": "wp-scripts start --webpack-src-dir=assets --output-path=build && npm run copy-index",
 		"copy-index": "cp assets/index.php build/index.php",
 		"make-pot": "wp i18n make-pot . languages/lang-attribute-blocks.pot --slug=lang-attribute-blocks --domain=lang-attribute-blocks --exclude=node_modules"

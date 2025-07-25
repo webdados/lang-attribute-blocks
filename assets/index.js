@@ -71,7 +71,7 @@ addFilter(
 	addLangAttributesToGroupBlock
 );
 
-function addListBlockClassName( settings, name ) {
+function addLangAndDirAttributes( settings, name ) {
 	// Only for supported blocks
 	if (
 		window.nakedCatPluginsLangAttributeBlocks
@@ -97,9 +97,47 @@ function addListBlockClassName( settings, name ) {
 
 }
 
-// Register the filters
+// Add a class when the block has any lang attribute applied
+const withLangAttr = createHigherOrderComponent( ( BlockListBlock ) => {
+	return ( props ) => {
+		// Only for supported blocks
+		if (
+			window.nakedCatPluginsLangAttributeBlocks
+			&&
+			window.nakedCatPluginsLangAttributeBlocks.supportedBlocks
+			&& 
+			! window.nakedCatPluginsLangAttributeBlocks.supportedBlocks.includes( props.block.name )
+		) {
+			return <BlockListBlock { ...props } />;
+		}
+
+		// Check if the block has a lang attribute set
+		const hasLangAttribute = props.block.attributes.lang && props.block.attributes.lang.trim() !== '';
+
+		if ( ! hasLangAttribute ) {
+			return <BlockListBlock { ...props } />;
+		}
+
+		return <BlockListBlock { ...props } className={ 'naked-cat-plugins-has-lang-attr' } />
+	}
+}, 'withLangAttr' );
+
+// Register the filters - Register lang and dir attributes
 addFilter(
 	'blocks.registerBlockType',
-	'lang-attribute-blocks/add-list-block-class-name',
-	addListBlockClassName
+	'lang-attribute-blocks/add-lang-and-dir-attributes',
+	addLangAndDirAttributes
 );
+
+// Register the filters - Only register the highlighting filter if the setting is enabled
+if ( 
+	window.nakedCatPluginsLangAttributeBlocks 
+	&& 
+	window.nakedCatPluginsLangAttributeBlocks.highlightEnabled 
+) {
+	addFilter(
+		'editor.BlockListBlock',
+		'lang-attribute-blocks/add-lang-and-dir-attributes',
+		withLangAttr
+	);
+}

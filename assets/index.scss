@@ -1,0 +1,5 @@
+body:not(.block-editor-page) *[lang],
+.editor-styles-wrapper .naked-cat-plugins-has-lang-attr {
+	outline: 3px dashed rgba( 255, 0, 0, 0.75 ) !important;
+	outline-offset: 2px;
+}
