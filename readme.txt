@@ -42,7 +42,6 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 * Submenu (`core/navigation-submenu`): Set a different language on a sub-section of your menu (for example, if you have the default language pages on the first level and a sub-menu with pages in another language)
 * Page List (`core/page-list`): List all the pages on your website that are written in a different language and created as a child of the main page of that language
 
-
 == Features ==
 * Add “lang” and “dir” attributes to Group, Columns, Cover, and other specific WordPress Blocks
 * Show visual outline around blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
