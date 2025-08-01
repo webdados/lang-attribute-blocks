@@ -270,6 +270,8 @@ final class Lang_Attribute_Blocks {
 			array(),
 			filemtime( plugin_dir_path( NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_FILE ) . 'build/index.css' )
 		);
+		// Add custom color override if specified
+		$this->maybe_add_custom_highlight_color();
 	}
 
 	/**
@@ -293,7 +295,32 @@ final class Lang_Attribute_Blocks {
 					array(),
 					filemtime( plugin_dir_path( NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_FILE ) . 'build/index.css' )
 				);
+				// Add custom color override if specified
+				$this->maybe_add_custom_highlight_color();
 			}
+		}
+	}
+
+	/**
+	 * Add custom highlight color override if specified via filter.
+	 *
+	 * @since 2.0
+	 */
+	private function maybe_add_custom_highlight_color() {
+		/**
+		 * Filter the highlight color for blocks with language attributes.
+		 *
+		 * @since 2.0
+		 * @param string $color The highlight color in any valid CSS format.
+		 *                      Default: 'rgba(255, 0, 0, 0.75)'
+		 */
+		$custom_color = apply_filters( 'nakedcatplugins_lang_attr_highlight_color', '' );
+
+		if ( ! empty( $custom_color ) ) {
+			wp_add_inline_style(
+				'nakedcatplugins-lang-attribute-blocks-style',
+				":root { --nakedcatplugins-lang-attr-highlight-color: {$custom_color}; }"
+			);
 		}
 	}
 

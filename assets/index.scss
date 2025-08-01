@@ -1,5 +1,9 @@
+:root {
+    --nakedcatplugins-lang-attr-highlight-color: rgba( 255, 0, 0, 0.75 );
+}
+
 body:not(.block-editor-page) *[lang],
 .editor-styles-wrapper .naked-cat-plugins-has-lang-attr {
-	outline: 3px dashed rgba( 255, 0, 0, 0.75 ) !important;
+	outline: 3px dashed var(--nakedcatplugins-lang-attr-highlight-color) !important;
 	outline-offset: 2px;
 }

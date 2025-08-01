@@ -4,7 +4,7 @@ Tags: language, accessibility, block editor
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 2.0-beta.1
+Stable tag: 2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,6 +64,12 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 
 The idea is to keep it simple and help content and website editors set different language sections, with as many child-blocks as they want, instead of setting it block by block.
 
+= Is it possible to change the highlight color? The default red is not suitable for my website background color. =
+
+Yes. Use the `nakedcatplugins_lang_attr_highlight_color` filter and return the color you want.
+
+Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfeefbac518851).
+
 = How can I contribute to this plugin? =
 
 [On GitHub](https://github.com/webdados/lang-attribute-blocks)
@@ -77,6 +83,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = 2.0 - 2025-08-01 =
 * [NEW] Support for new block types: Navigation, Submenu, and Page List
 * [DEV] Code refactoring: everything now happens inside a class instead of the main plugin file
+* [DEV] Allow changing the highlight color using the `nakedcatplugins_lang_attr_highlight_color` filter
 * [TWEAK] Better information and screenshot about the highlighting feature for website Administrators and Editors, in the readme.txt file
 * [TWEAK] Make evident that the language shown as a placeholder is the default website language when a custom language is not set for a block
 
