@@ -65,7 +65,7 @@ The idea is to keep it simple and help content and website editors set different
 
 = Is it possible to change the highlight color? The default red is not suitable for my website background color. =
 
-Yes. Use the `nakedcatplugins_lang_attr_highlight_color` filter and return the color you want.
+Yes. Use the `nakedcatplugins_lang_attr_highlight_color` PHP filter and return the color you want.
 Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfeefbac518851).
 
 If your are working on a WordCamp website, or you don’t want to mess around with PHP, you can also add custom CSS to change the color, overriding our `--nakedcatplugins-lang-attr-highlight-color` variable.
