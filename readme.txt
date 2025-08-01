@@ -35,12 +35,12 @@ That’s not just good for accessibility. It’s also great for SEO. Search engi
 Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).
 
 == Supported block types ==
-* Group (`core/group`): Group contents together and set a language for them
-* Columns (`core/columns` and `core/column`): Organize content into a set of columns and set a language for all the columns or a specific column
-* Cover (`core/cover`): Set the language to all the contents inside a cover block
-* Navigation (`core/navigation`): Create full navigation menus in different languages
-* Submenu (`core/navigation-submenu`): Set a different language on a sub-section of your menu (for example, if you have the default language pages on the first level and a sub-menu with pages in another language)
-* Page List (`core/page-list`): List all the pages on your website that are written in a different language and created as a child of the main page of that language
+* **Group** (`core/group`): Group contents together and set a language for them
+* **Columns** (`core/columns` and `core/column`): Organize content into a set of columns and set a language for all the columns or a specific column
+* **Cover** (`core/cover`): Set the language to all the contents inside a cover block
+* **Navigation** (`core/navigation`): Create full navigation menus in different languages
+* **Submenu** (`core/navigation-submenu`): Set a different language on a sub-section of your menu (for example, if you have the default language pages on the first level and a sub-menu with pages in another language)
+* **Page List** (`core/page-list`): List all the pages on your website that are written in a different language and created as a child of the main page of that language
 
 == Features ==
 * Add “lang” and “dir” attributes to Group, Columns, Cover, and other specific WordPress Blocks
@@ -66,7 +66,9 @@ The idea is to keep it simple and help content and website editors set different
 = Is it possible to change the highlight color? The default red is not suitable for my website background color. =
 
 Yes. Use the `nakedcatplugins_lang_attr_highlight_color` filter and return the color you want.
+Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfeefbac518851).
 
+If your are working on a WordCamp website, or you don’t want to mess around with PHP, you can also add custom CSS to change the color, overriding our `--nakedcatplugins-lang-attr-highlight-color` variable.
 Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfeefbac518851).
 
 = How can I contribute to this plugin? =
