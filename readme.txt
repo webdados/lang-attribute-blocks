@@ -4,7 +4,7 @@ Tags: language, accessibility, block editor
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -41,6 +41,7 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 * **Navigation** (`core/navigation`): Create full navigation menus in different languages
 * **Submenu** (`core/navigation-submenu`): Set a different language on a sub-section of your menu (for example, if you have the default language pages on the first level and a sub-menu with pages in another language)
 * **Page List** (`core/page-list`): List all the pages on your website that are written in a different language and created as a child of the main page of that language
+* **Content** (`core/post-content`): Set the post content on a custom template to a different language
 
 == Features ==
 * Add “lang” and “dir” attributes to Group, Columns, Cover, and other specific WordPress Blocks
@@ -80,6 +81,10 @@ Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfe
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage, and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/ce04f590-44d9-45f3-9411-9028e87d4725 )
 
 == Changelog ==
+
+= 2.1 - 2025-08-09 =
+* [NEW] Support for the Content block type
+* [FIX] Apply the attribute to the correct Group block tag when it’s not a DIV
 
 = 2.0 - 2025-08-01 =
 * [NEW] Support for new block types: Navigation, Submenu, and Page List

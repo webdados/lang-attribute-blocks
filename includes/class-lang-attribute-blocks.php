@@ -72,6 +72,8 @@ final class Lang_Attribute_Blocks {
 		'core/navigation',
 		'core/navigation-submenu',
 		'core/page-list',
+		// Special blocks
+		'core/post-content',
 	);
 
 	/**
@@ -203,6 +205,15 @@ final class Lang_Attribute_Blocks {
 					break;
 				case 'core/page-list':
 					$tag = 'ul';
+					break;
+				case 'core/group':
+					// We need to find out the correct tag for the group block
+					if ( isset( $block['attrs']['tagName'] ) && ! empty( trim( $block['attrs']['tagName'] ) ) ) {
+						$tag = $block['attrs']['tagName'];
+					} else {
+						// Default to div if no specific tag is found
+						$tag = 'div';
+					}
 					break;
 				default:
 					// If no specific tag is found, we default to a div

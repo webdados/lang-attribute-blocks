@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Language Attribute for Container Blocks 2.0\n"
+"Project-Id-Version: Language Attribute for Container Blocks 2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/lang-attribute-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-01T16:04:44+00:00\n"
+"POT-Creation-Date: 2025-08-09T13:34:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: lang-attribute-blocks\n"
 
 #. Plugin Name of the plugin
 #: lang-attribute-blocks.php
-#: includes/class-lang-attribute-blocks.php:352
+#: includes/class-lang-attribute-blocks.php:363
 msgid "Language Attribute for Container Blocks"
 msgstr ""
 
@@ -36,27 +36,27 @@ msgid "https://nakedcatplugins.com"
 msgstr ""
 
 #. translators: %s: The website's default language code
-#: includes/class-lang-attribute-blocks.php:257
+#: includes/class-lang-attribute-blocks.php:268
 msgid "%s (default website language)"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:360
+#: includes/class-lang-attribute-blocks.php:371
 msgid "Highlight blocks with lang attribute"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:374
+#: includes/class-lang-attribute-blocks.php:385
 msgid "Configure Language Attribute for Container Blocks plugin settings."
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:387
+#: includes/class-lang-attribute-blocks.php:398
 msgid "Show visual outline around blocks that have a language attribute set"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:390
+#: includes/class-lang-attribute-blocks.php:401
 msgid "When enabled, blocks with a language attribute will be visually highlighted with a red dashed outline in both the editor and frontend (only for Administrators and Editors)."
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:410
+#: includes/class-lang-attribute-blocks.php:421
 msgid "Settings"
 msgstr ""
 
