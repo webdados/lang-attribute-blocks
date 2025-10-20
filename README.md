@@ -48,6 +48,7 @@ This plugin provides a way to ensure that any language change in the content of 
 
 - `npm run start` - Start development mode with file watching
 - `npm run build` - Create production build
+- `npm run make-pot` - Update .pot file
 
 ## How can I report security bugs?
 
