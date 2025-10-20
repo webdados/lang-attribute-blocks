@@ -5,6 +5,7 @@
 # Tooling files
 *.git*
 *.github*
+*.wordpress-org*
 *.svn*
 *.distignore*
 *.gitignore*

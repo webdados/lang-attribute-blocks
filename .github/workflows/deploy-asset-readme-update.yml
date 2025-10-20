@@ -8,7 +8,7 @@ on:
       # Any change on the WordPress.org plugin repository-specific assets that belong in the top-level assets directory.
       - '.wordpress-org/**'
       # The readme.txt.
-      - 'readme.txt'
+      # - 'readme.txt'
       # Changes to workflow files should always verify all workflows are successful.
       - '.github/workflows/*.yml'
   # Allows you to run this workflow manually from the Actions tab.

@@ -4,7 +4,7 @@ Tags: language, accessibility, block editor
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -81,6 +81,9 @@ Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfe
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage, and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/ce04f590-44d9-45f3-9411-9028e87d4725 )
 
 == Changelog ==
+
+= 2.2 - 2025-10-20 =
+* [DEV] Implement deployment actions on GitHub
 
 = 2.1 - 2025-08-09 =
 * [NEW] Support for the Content block type
