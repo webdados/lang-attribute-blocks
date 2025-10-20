@@ -84,6 +84,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.2 - 2025-10-20 =
 * [DEV] Implement deployment actions on GitHub
+* [DEV] Update phpcs rules file
 
 = 2.1 - 2025-08-09 =
 * [NEW] Support for the Content block type
