@@ -1,0 +1,1 @@
+:root{--nakedcatplugins-lang-attr-highlight-color:rgba(255,0,0,.75)}.editor-styles-wrapper .naked-cat-plugins-has-lang-attr,body:not(.block-editor-page) [lang]{outline:3px dashed var(--nakedcatplugins-lang-attr-highlight-color)!important;outline-offset:2px}

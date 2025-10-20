@@ -1,0 +1,21 @@
+# Operative system files
+*.DS_Store*
+*__MACOSX*
+
+# Tooling files
+*.git*
+*.github*
+*.svn*
+*.distignore*
+*.gitignore*
+*phpcs.xml*
+*node_modules*
+*package.json*
+*package-lock.json*
+*webpack.config.js*
+
+# Local ZIP creation tool
+*createzip.command*
+
+# Other files specific to the plugin
+*README.md*
