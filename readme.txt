@@ -88,7 +88,7 @@ Yes. Use the `nakedcatplugins_lang_attr_highlight_color` PHP filter and return t
 Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfeefbac518851).
 
 If your are working on a WordCamp website, or you don’t want to mess around with PHP, you can also add custom CSS to change the color, overriding our `--nakedcatplugins-lang-attr-highlight-color` variable.
-Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfeefbac518851).
+Here’s a [Gist example](https://gist.github.com/webdados/7179f5be4e224ba84867cf77e9bc9174).
 
 = How can I contribute to this plugin? =
 
@@ -103,6 +103,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = 3.0 - ? =
 * [NEW] Set the page/post language at the document level: a new “Page Language” panel in the Document Settings sidebar allows overriding the HTML `lang` and `dir` attributes for a specific page or post, independently of the website’s default language
 * [TWEAK] Rename “Language Settings” sidebar block panel to “Block Language”
+* [FIX] Gist URL for changing the highlight color using plain CSS
 * [DEV] Tested up to 7.0-beta2-61784
 
 = 2.2 - 2025-10-20 =
