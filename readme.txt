@@ -2,7 +2,7 @@
 Contributors: nakedcatplugins, webdados
 Tags: language, accessibility, block editor
 Requires at least: 5.9
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.2
 Stable tag: 2.2
 License: GPLv3
@@ -102,6 +102,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = 3.0 - ? =
 * [NEW] Set the page/post language at the document level: a new “Page Language” panel in the Document Settings sidebar allows overriding the HTML `lang` and `dir` attributes for a specific page or post, independently of the website’s default language
 * [TWEAK] Rename “Language Settings” sidebar block panel to “Block Language”
+* [DEV] Tested up to 7.0-beta2-61784
 
 = 2.2 - 2025-10-20 =
 * [DEV] Implement deployment actions on GitHub

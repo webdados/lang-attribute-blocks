@@ -203,8 +203,8 @@ final class Lang_Attribute_Blocks {
 			return $output;
 		}
 		$post_id   = get_queried_object_id();
-		$page_lang = get_post_meta( $post_id, '_nakedcatplugins_page_lang', true );
-		$page_dir  = get_post_meta( $post_id, '_nakedcatplugins_page_dir', true );
+		$page_lang = trim( get_post_meta( $post_id, '_nakedcatplugins_page_lang', true ) );
+		$page_dir  = trim( get_post_meta( $post_id, '_nakedcatplugins_page_dir', true ) );
 
 		if ( ! empty( $page_lang ) ) {
 			$safe_lang = esc_attr( $page_lang );
@@ -277,8 +277,8 @@ final class Lang_Attribute_Blocks {
 	 */
 	public function process_blocks( $block_content, $block ) {
 		if ( isset( $block['attrs']['lang'] ) && ! empty( $block['attrs']['lang'] ) ) {
-			$lang          = esc_attr( $block['attrs']['lang'] );
-			$dir           = isset( $block['attrs']['dir'] ) ? esc_attr( $block['attrs']['dir'] ) : 'ltr';
+			$lang          = trim( esc_attr( $block['attrs']['lang'] ) );
+			$dir           = trim( isset( $block['attrs']['dir'] ) ? esc_attr( $block['attrs']['dir'] ) : 'ltr' );
 			$tag_processor = new \WP_HTML_Tag_Processor( $block_content );
 			// Depending on the block type, we will set the tag to be processed
 			switch ( $block['blockName'] ) {

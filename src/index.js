@@ -33,8 +33,8 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 
 		const { attributes, setAttributes } = props;
 
-		// Get existing lang and dir attributes or set default values
-		const lang = attributes.lang || '';
+		// Get existing lang and dir attributes or set default values (trimmed)
+		const lang = ( attributes.lang || '' ).trim();
 		const dir = attributes.dir || 'ltr';
 
 		return (
@@ -48,7 +48,7 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 						<TextControl
 							label={ __( 'Language Code', 'lang-attribute-blocks' ) }
 							value={ lang }
-							onChange={ ( value ) => setAttributes( { lang: value } ) }
+							onChange={ ( value ) => setAttributes( { lang: value.trim() } ) }
 							placeholder={ window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)' }
 							help={ __( "Valid language code for this block, like “fr” or “pt-PT”, if different from the website's or page's main language (shown as a placeholder)", 'lang-attribute-blocks' ) }
 						/>
@@ -156,7 +156,7 @@ const PageLanguageControls = () => {
 	);
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
 
-	const pageLang = meta?._nakedcatplugins_page_lang ?? '';
+	const pageLang = ( meta?._nakedcatplugins_page_lang ?? '' ).trim();
 	const pageDir = meta?._nakedcatplugins_page_dir ?? 'ltr';
 
 	return (
@@ -167,7 +167,7 @@ const PageLanguageControls = () => {
 			<TextControl
 				label={ __( 'Language Code', 'lang-attribute-blocks' ) }
 				value={ pageLang }
-				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_lang: value } ) }
+				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_lang: value.trim() } ) }
 				placeholder={ window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)' }
 				help={ __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' ) }
 			/>
