@@ -74,6 +74,7 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 = When should I use the page-level language setting instead of a block-level one? =
 
 Use the **Page Language** setting (in the Document Settings sidebar) when the entire page or post is written in a different language than the website default. This overrides the `lang` attribute on the HTML element itself, which corresponds to WCAG 3.1.1 (Language of Page).
+In this case, we also recommend creating a dedicated template in the Site Editor (Appearance → Editor → Templates) where shared template parts — such as the header and footer — are also in that same language.
 
 Use the **Block Language** setting (in the block’s sidebar panel) when only a specific section within a page is in a different language, while the rest of the page remains in the site’s default language. This corresponds to WCAG 3.1.2 (Language of Parts).
 
