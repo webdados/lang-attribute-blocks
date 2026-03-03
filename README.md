@@ -1,10 +1,10 @@
-# Language Attribute for Container Blocks
+# Language Attribute for Container Blocks and Pages/Posts
 
-A WordPress plugin that adds “lang” and “dir” attributes to Group, Columns, and Cover blocks for improved accessibility.
+A WordPress plugin that adds  `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, or to the whole page/post for improved accessibility.
 
 ## Description
 
-This plugin provides a way to ensure that any language change in the content of a page is indicated to assistive technologies at the container block level, helping a website comply with WCAG guidelines.
+This plugin provides a way to ensure that language changes are correctly indicated to assistive technologies, helping a website comply with WCAG guidelines. It works at two levels: at the **block level** (Group, Columns, Cover, and other container blocks) for sections within a page written in a different language (WCAG 3.1.2), and at the **page/post level** to override the HTML `lang` and `dir` attributes for an entire page written in a different language (WCAG 3.1.1).
 
 ## Build Instructions
 

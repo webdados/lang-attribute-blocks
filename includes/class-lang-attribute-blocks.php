@@ -1,6 +1,6 @@
 <?php
 /**
- * Main plugin class for Language Attribute for Container Blocks
+ * Main plugin class for Language Attribute for Container Blocks and Pages/Posts
  *
  * This file contains the core functionality for adding language and direction
  * attributes to WordPress container blocks.
@@ -135,6 +135,10 @@ final class Lang_Attribute_Blocks {
 		foreach ( $this->blocks as $block_name ) {
 			add_filter( 'render_block_' . $block_name, array( $this, 'process_blocks' ), 10, 2 );
 		}
+		// Register post meta for page-level language settings
+		add_action( 'init', array( $this, 'register_page_lang_meta' ) );
+		// Apply page-level language attribute to the <html> element
+		add_filter( 'language_attributes', array( $this, 'apply_page_lang_attribute' ) );
 		// Enqueues JavaScript and CSS assets for the WordPress block editor
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 		// Enqueues CSS assets for the frontend
@@ -143,6 +147,84 @@ final class Lang_Attribute_Blocks {
 		add_action( 'admin_init', array( $this, 'add_writing_settings' ) );
 		// Add settings link to the plugin action links
 		add_filter( 'plugin_action_links_' . plugin_basename( NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_FILE ), array( $this, 'add_plugin_action_links' ) );
+	}
+
+	/**
+	 * Register post meta fields for page-level language settings.
+	 *
+	 * Registers '_nakedcatplugins_page_lang' and '_nakedcatplugins_page_dir' meta
+	 * for all public post types, exposed via the REST API so the block editor
+	 * can read and write them.
+	 *
+	 * @since 3.0
+	 * @hook init
+	 * @return void
+	 */
+	public function register_page_lang_meta() {
+		$args_lang = array(
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => '',
+			'auth_callback' => function () {
+				return current_user_can( 'edit_posts' );
+			},
+		);
+		$args_dir  = array(
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => 'ltr',
+			'auth_callback' => function () {
+				return current_user_can( 'edit_posts' );
+			},
+		);
+		// Register for all public post types
+		foreach ( get_post_types( array( 'public' => true ) ) as $post_type ) {
+			register_post_meta( $post_type, '_nakedcatplugins_page_lang', $args_lang );
+			register_post_meta( $post_type, '_nakedcatplugins_page_dir', $args_dir );
+		}
+	}
+
+	/**
+	 * Override the HTML lang (and optionally dir) attribute for singular pages/posts.
+	 *
+	 * When a page or post has the '_nakedcatplugins_page_lang' meta set, this method
+	 * replaces the lang attribute on the <html> element with the stored value.
+	 * When '_nakedcatplugins_page_dir' is set to 'rtl', the dir attribute is also applied.
+	 *
+	 * @since 3.0
+	 * @hook language_attributes
+	 * @param string $output The existing language attributes string, e.g. 'lang="en-US"'.
+	 * @return string Modified language attributes string.
+	 */
+	public function apply_page_lang_attribute( $output ) {
+		if ( ! is_singular() ) {
+			return $output;
+		}
+		$post_id   = get_queried_object_id();
+		$page_lang = get_post_meta( $post_id, '_nakedcatplugins_page_lang', true );
+		$page_dir  = get_post_meta( $post_id, '_nakedcatplugins_page_dir', true );
+
+		if ( ! empty( $page_lang ) ) {
+			$safe_lang = esc_attr( $page_lang );
+			if ( strpos( $output, 'lang=' ) !== false ) {
+				$output = preg_replace( '/lang="[^"]*"/', 'lang="' . $safe_lang . '"', $output );
+			} else {
+				$output .= ' lang="' . $safe_lang . '"';
+			}
+		}
+
+		if ( ! empty( $page_dir ) && 'rtl' === $page_dir ) {
+			$safe_dir = esc_attr( $page_dir );
+			if ( strpos( $output, 'dir=' ) !== false ) {
+				$output = preg_replace( '/dir="[^"]*"/', 'dir="' . $safe_dir . '"', $output );
+			} else {
+				$output .= ' dir="' . $safe_dir . '"';
+			}
+		}
+
+		return $output;
 	}
 
 	/**
@@ -250,7 +332,7 @@ final class Lang_Attribute_Blocks {
 		wp_enqueue_script(
 			'nakedcatplugins-lang-attribute-blocks-script',
 			plugins_url( 'build/index.js', NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_FILE ),
-			array( 'wp-blocks', 'wp-dom', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-i18n', 'wp-block-editor' ),
+			array( 'wp-blocks', 'wp-dom', 'wp-dom-ready', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-i18n', 'wp-block-editor', 'wp-plugins', 'wp-data', 'wp-core-data' ),
 			filemtime( plugin_dir_path( NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_FILE ) . 'build/index.js' ),
 			true
 		);
@@ -360,7 +442,7 @@ final class Lang_Attribute_Blocks {
 		// Add settings section
 		add_settings_section(
 			'nakedcatplugins_lang_attr_section',
-			__( 'Language Attribute for Container Blocks', 'lang-attribute-blocks' ),
+			__( 'Language Attribute for Container Blocks and Pages/Posts', 'lang-attribute-blocks' ),
 			array( $this, 'settings_section_callback' ),
 			'writing'
 		);
@@ -382,7 +464,7 @@ final class Lang_Attribute_Blocks {
 	 * @return void
 	 */
 	public function settings_section_callback() {
-		echo '<p>' . esc_html__( 'Configure Language Attribute for Container Blocks plugin settings.', 'lang-attribute-blocks' ) . '</p>';
+		echo '<p>' . esc_html__( 'Configure Language Attribute for Container Blocks and Pages/Posts plugin settings.', 'lang-attribute-blocks' ) . '</p>';
 	}
 	/**
 	 * Highlight blocks field callback.
@@ -407,7 +489,7 @@ final class Lang_Attribute_Blocks {
 	 * Add settings link to the plugin action links.
 	 *
 	 * This function adds a "Settings" link to the plugin's row on the Plugins page
-	 * that points to the Language Attribute for Container Blocks settings section
+	 * that points to the Language Attribute for Container Blocks and Pages/Posts settings section
 	 * on the Settings > Writing page.
 	 *
 	 * @since 1.2

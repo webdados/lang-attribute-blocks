@@ -9,6 +9,10 @@ import { InspectorControls } from '@wordpress/block-editor';
 import { TextControl, SelectControl, PanelBody } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
+import { registerPlugin } from '@wordpress/plugins';
+import { PluginDocumentSettingPanel } from '@wordpress/editor';
+import { useEntityProp } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
 
 
 /**
@@ -38,7 +42,7 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 				<BlockEdit { ...props } />
 				<InspectorControls>
 					<PanelBody
-						title={ __( 'Language Settings', 'lang-attribute-blocks' ) }
+						title={ __( 'Block Language', 'lang-attribute-blocks' ) }
 						initialOpen={ true }
 					>
 						<TextControl
@@ -46,7 +50,7 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 							value={ lang }
 							onChange={ ( value ) => setAttributes( { lang: value } ) }
 							placeholder={ window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)' }
-							help={ __( 'Valid language code, like “fr” or “pt-PT”, if different from the website main language (shown as a placeholder)', 'lang-attribute-blocks' ) }
+							help={ __( "Valid language code for this block, like “fr” or “pt-PT”, if different from the website's or page's main language (shown as a placeholder)", 'lang-attribute-blocks' ) }
 						/>
 						<SelectControl
 							label={ __( 'Text Direction', 'lang-attribute-blocks' ) }
@@ -141,3 +145,46 @@ if (
 		withLangAttr
 	);
 }
+
+/**
+ * Page-level language controls in the Document Settings panel
+ */
+const PageLanguageControls = () => {
+	const postType = useSelect(
+		( select ) => select( 'core/editor' ).getCurrentPostType(),
+		[]
+	);
+	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
+
+	const pageLang = meta?._nakedcatplugins_page_lang ?? '';
+	const pageDir = meta?._nakedcatplugins_page_dir ?? 'ltr';
+
+	return (
+		<PluginDocumentSettingPanel
+			name="nakedcatplugins-page-lang-panel"
+			title={ __( 'Page Language', 'lang-attribute-blocks' ) }
+		>
+			<TextControl
+				label={ __( 'Language Code', 'lang-attribute-blocks' ) }
+				value={ pageLang }
+				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_lang: value } ) }
+				placeholder={ window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)' }
+				help={ __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' ) }
+			/>
+			<SelectControl
+				label={ __( 'Text Direction', 'lang-attribute-blocks' ) }
+				value={ pageDir }
+				options={[
+					{ label: __( 'Left to right', 'lang-attribute-blocks' ), value: 'ltr' },
+					{ label: __( 'Right to left', 'lang-attribute-blocks' ), value: 'rtl' },
+				]}
+				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_dir: value } ) }
+			/>
+		</PluginDocumentSettingPanel>
+	);
+};
+
+// Register the plugin to show page-level language controls in the Document panel
+registerPlugin( 'nakedcatplugins-page-lang-controls', {
+	render: PageLanguageControls,
+} );

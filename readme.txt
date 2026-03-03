@@ -1,4 +1,4 @@
-=== Language Attribute for Container Blocks ===
+=== Language Attribute for Container Blocks and Pages/Posts ===
 Contributors: nakedcatplugins, webdados
 Tags: language, accessibility, block editor
 Requires at least: 5.9
@@ -8,25 +8,32 @@ Stable tag: 2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Add “lang” and “dir” attributes to Group, Columns, Cover, and other specific WordPress Blocks.
+Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, or to the whole page/post.
 
 == Description ==
 
-This plugin aims to provide a way to ensure that any language change in the content of a page is indicated to assistive technologies at the container block level, helping a website comply with WCAG guidelines.
+This plugin aims to ensure that any language change in a page’s content is indicated to assistive technologies at the container block level, helping a website comply with WCAG guidelines.
 
 This feature is available on the core block editor only at a text formatting level after code from [Jb Audras plugin “Lang Attribute for the Block Editor”](https://wordpress.org/plugins/lang-attribute/) was merged into core. The objective of this plugin is to provide the same functionality at a container block level (Group - including all its variants, Columns, Cover, and other specific block types) so that the language applies to all child elements, no matter the kind of content inside.
 
-This plugin is heavily inspired by the Jb Audras plugin (including this readme file), and the development started at WordCamp Europe 2025 Contributor Day, by Marco Almeida from [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) / [Webdados](https://profiles.wordpress.org/webdados/), and the help from [Ryan Welcher](https://profiles.wordpress.org/welcher/) on the code side and [Amber Hinds](https://profiles.wordpress.org/alh0319/) on the accessibility compliance side.
+The plugin also supports setting the language at the page or post level. When an entire page is written in a different language than the website’s default, you can override the HTML `lang` and `dir` attributes for that specific page directly from the Document Settings sidebar, without needing to wrap everything in a container block.
 
-For more context: this plugin helps you to make your website compliant with the Web Content Accessibility Guidelines (WCAG) success criterion 3.1.2: “Language of Parts”. The purpose of this success Criterion is to ensure that user agents can correctly present content written in multiple languages.
+This plugin is heavily inspired by the Jb Audras plugin (including this readme file). The development started at WordCamp Europe 2025 Contributor Day, by Marco Almeida from [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) / [Webdados](https://profiles.wordpress.org/webdados/), and the help from [Ryan Welcher](https://profiles.wordpress.org/welcher/) on the code side and [Amber Hinds](https://profiles.wordpress.org/alh0319/) on the accessibility compliance side.
 
-Keep in mind that you should only set the lang and dir attributes to a container block if the content you’re going to insert inside it is written in a different language than that set globally on your website.
+For more context: this plugin helps you to make your website compliant with the Web Content Accessibility Guidelines (WCAG) success criteria:
 
-As per Web Content Accessibility Guidelines:
+* **3.1.1 – Language of Page**: The default human language of each web page can be programmatically determined. Use the page-level setting when an entire page or post is written in a language other than the website’s default.
+* **3.1.2 – Language of Parts**: The human language of each passage or phrase in the content can be programmatically determined. Use the block-level setting when only specific sections within a page are in a different language.
 
-This makes it possible for user agents and assistive technologies to present content according to the presentation and pronunciation rules for that language. This applies to graphical browsers as well as screen readers, braille displays, and other voice browsers.
+The purpose of these success criteria is to ensure that user agents can correctly present content written in multiple languages.
 
-Both assistive technologies and conventional user agents can render text more accurately if the language of each passage of text is identified. Screen readers can use the pronunciation rules of the language of the text. Visual browsers can display characters and scripts in appropriate ways.
+Keep in mind that you should set the `lang` and `dir` attributes only on a container block or page if the content is written in a language different from the one set globally on your website.
+
+**As per Web Content Accessibility Guidelines:**
+
+This enables user agents and assistive technologies to present content according to the presentation and pronunciation rules of that language. This applies to graphical browsers, screen readers, braille displays, and other voice browsers.
+
+Both assistive technologies and conventional user agents can render text more accurately if the language of each passage of text is identified. Screen readers can use the language’s pronunciation rules. Visual browsers can display characters and scripts appropriately.
 
 This is especially important when switching between languages that read from left to right and languages that read from right to left, or when text is rendered in a language that uses a different alphabet. Users with disabilities who know all the languages used in the Web page will be better able to understand the content when each passage is rendered appropriately.
 
@@ -35,6 +42,7 @@ That’s not just good for accessibility. It’s also great for SEO. Search engi
 Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).
 
 == Supported block types ==
+
 * **Group** (`core/group`): Group contents together and set a language for them
 * **Columns** (`core/columns` and `core/column`): Organize content into a set of columns and set a language for all the columns or a specific column
 * **Cover** (`core/cover`): Set the language to all the contents inside a cover block
@@ -44,21 +52,30 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 * **Content** (`core/post-content`): Set the post content on a custom template to a different language
 
 == Features ==
-* Add “lang” and “dir” attributes to Group, Columns, Cover, and other specific WordPress Blocks
+
+* Set the language and text direction for an entire page or post: a “Page Language” panel in the Document Settings sidebar overrides the HTML `lang` and `dir` attributes for that specific page
+* Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, mentioned above
 * Show visual outline around blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
 
 == Screenshots ==
 
 1. Using the block editor to add a language attribute to a Group block
-2. The lang and dir attributes rendered on the frontend
+2. The `lang` and `dir attributes rendered on the frontend
 3. Using the highlighting option during the editing process
 
 == Installation ==
 
 1. Install the plugin and activate it.
-2. Insert a Group, Columns, Cover (or other specific) block, and use the “Language Settings” sidebar panel to set the language for all the content inside that container
+2. To set the language for an entire page or post: open the Document Settings sidebar (the panel icon at the top right of the editor) and use the “Page Language” panel.
+3. To set the language for a specific section within a page: insert a Group, Columns, Cover (or other specific) block, and use the “Block Language” sidebar panel to set the language for all the content inside that container.
 
 == Frequently Asked Questions ==
+
+= When should I use the page-level language setting instead of a block-level one? =
+
+Use the **Page Language** setting (in the Document Settings sidebar) when the entire page or post is written in a different language than the website default. This overrides the `lang` attribute on the HTML element itself, which corresponds to WCAG 3.1.1 (Language of Page).
+
+Use the **Block Language** setting (in the block’s sidebar panel) when only a specific section within a page is in a different language, while the rest of the page remains in the site’s default language. This corresponds to WCAG 3.1.2 (Language of Parts).
 
 = Why not have the option to set the language attribute on all block types? =
 
@@ -81,6 +98,10 @@ Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfe
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage, and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/ce04f590-44d9-45f3-9411-9028e87d4725 )
 
 == Changelog ==
+
+= 3.0 - ? =
+* [NEW] Set the page/post language at the document level: a new “Page Language” panel in the Document Settings sidebar allows overriding the HTML `lang` and `dir` attributes for a specific page or post, independently of the website’s default language
+* [TWEAK] Rename “Language Settings” sidebar block panel to “Block Language”
 
 = 2.2 - 2025-10-20 =
 * [DEV] Implement deployment actions on GitHub
