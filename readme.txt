@@ -16,7 +16,7 @@ This plugin aims to ensure that any language change in a page’s content is ind
 
 This feature is available on the core block editor only at a text formatting level after code from [Jb Audras plugin “Lang Attribute for the Block Editor”](https://wordpress.org/plugins/lang-attribute/) was merged into core. The objective of this plugin is to provide the same functionality at a container block level (Group - including all its variants, Columns, Cover, and other specific block types) so that the language applies to all child elements, no matter the kind of content inside.
 
-The plugin also supports setting the language at the page or post level. When an entire page is written in a different language than the website’s default, you can override the HTML `lang` and `dir` attributes for that specific page directly from the Document Settings sidebar, without needing to wrap everything in a container block.
+The plugin also supports setting the language at the page or post level, both on the blocks and classic editor. When an entire page is written in a different language than the website’s default, you can override the HTML `lang` and `dir` attributes for that specific page directly from the Document Settings sidebar, without needing to wrap everything in a container block.
 
 This plugin is heavily inspired by the Jb Audras plugin (including this readme file). The development started at WordCamp Europe 2025 Contributor Day, by Marco Almeida from [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) / [Webdados](https://profiles.wordpress.org/webdados/), and the help from [Ryan Welcher](https://profiles.wordpress.org/welcher/) on the code side and [Amber Hinds](https://profiles.wordpress.org/alh0319/) on the accessibility compliance side.
 
@@ -53,7 +53,7 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 
 == Features ==
 
-* Set the language and text direction for an entire page or post: a “Page Language” panel in the Document Settings sidebar overrides the HTML `lang` and `dir` attributes for that specific page
+* Set the language and text direction for an entire page or post, both on the blocks and classic editor: a “Page Language” panel in the Document Settings sidebar overrides the HTML `lang` and `dir` attributes for that specific page
 * Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, mentioned above
 * Show visual outline around blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
 

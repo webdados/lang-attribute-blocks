@@ -147,6 +147,9 @@ final class Lang_Attribute_Blocks {
 		add_action( 'admin_init', array( $this, 'add_writing_settings' ) );
 		// Add settings link to the plugin action links
 		add_filter( 'plugin_action_links_' . plugin_basename( NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_FILE ), array( $this, 'add_plugin_action_links' ) );
+		// Add classic editor metabox for page-level language settings
+		add_action( 'add_meta_boxes', array( $this, 'add_classic_editor_metabox' ) );
+		add_action( 'save_post', array( $this, 'save_classic_editor_metabox' ), 10, 2 );
 	}
 
 	/**
@@ -489,6 +492,143 @@ final class Lang_Attribute_Blocks {
 			<?php esc_html_e( 'When enabled, blocks with a language attribute will be visually highlighted with a red dashed outline in both the editor and frontend (only for Administrators and Editors).', 'lang-attribute-blocks' ); ?>
 		</p>
 		<?php
+	}
+
+	/**
+	 * Register the page language metabox for the classic editor.
+	 *
+	 * Added to all public post types so editors can set the page-level
+	 * lang and dir meta without the block editor.
+	 *
+	 * @since 3.0
+	 * @hook add_meta_boxes
+	 * @return void
+	 */
+	public function add_classic_editor_metabox() {
+		// Only register the metabox in the classic editor; the block editor
+		// provides its own Document Settings panel for the same fields.
+		$screen = get_current_screen();
+		if ( $screen && $screen->is_block_editor() ) {
+			return;
+		}
+
+		foreach ( get_post_types( array( 'public' => true ), 'names' ) as $post_type ) {
+			add_meta_box(
+				'nakedcatplugins_page_language',
+				__( 'Page Language', 'lang-attribute-blocks' ),
+				array( $this, 'render_classic_editor_metabox' ),
+				$post_type,
+				'side',
+				'default'
+			);
+		}
+	}
+
+	/**
+	 * Render the classic editor metabox HTML.
+	 *
+	 * @since 3.0
+	 * @param \WP_Post $post The current post object.
+	 * @return void
+	 */
+	public function render_classic_editor_metabox( \WP_Post $post ) {
+		$lang = trim( get_post_meta( $post->ID, '_nakedcatplugins_page_lang', true ) );
+		$dir  = trim( get_post_meta( $post->ID, '_nakedcatplugins_page_dir', true ) );
+		if ( empty( $dir ) ) {
+			$dir = 'ltr';
+		}
+
+		wp_nonce_field( 'nakedcatplugins_page_language_metabox', 'nakedcatplugins_page_language_nonce' );
+		$placeholder = sprintf(
+			/* translators: %s: The website's default language code */
+			__( '%s (default website language)', 'lang-attribute-blocks' ),
+			get_bloginfo( 'language' )
+		);
+		?>
+		<p>
+			<label for="nakedcatplugins_page_lang">
+				<?php esc_html_e( 'Language Code', 'lang-attribute-blocks' ); ?>
+			</label>
+			<input type="text" id="nakedcatplugins_page_lang" name="nakedcatplugins_page_lang" value="<?php echo esc_attr( $lang ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>" class="widefat"/>
+			<span class="description">
+				<?php esc_html_e( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' ); ?>
+			</span>
+		</p>
+		<p>
+			<label for="nakedcatplugins_page_dir">
+				<?php esc_html_e( 'Text Direction', 'lang-attribute-blocks' ); ?>
+			</label>
+			<select id="nakedcatplugins_page_dir" name="nakedcatplugins_page_dir" class="widefat">
+				<option value="ltr" <?php selected( $dir, 'ltr' ); ?>>
+					<?php esc_html_e( 'Left to right', 'lang-attribute-blocks' ); ?>
+				</option>
+				<option value="rtl" <?php selected( $dir, 'rtl' ); ?>>
+					<?php esc_html_e( 'Right to left', 'lang-attribute-blocks' ); ?>
+				</option>
+			</select>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Save the classic editor metabox values.
+	 *
+	 * Validates the nonce to confirm the metabox was present in the form
+	 * (guards against quick edit, bulk actions, REST and programmatic saves
+	 * that would otherwise wipe the meta), checks capabilities, then saves
+	 * or deletes the page language meta fields.
+	 *
+	 * @since 3.0
+	 * @hook save_post
+	 * @param int      $post_id The post ID being saved.
+	 * @param \WP_Post $post    The post object being saved.
+	 * @return void
+	 */
+	public function save_classic_editor_metabox( int $post_id, \WP_Post $post ) {
+		// If our metabox was not present in the request, bail out to avoid
+		// accidentally wiping the meta (e.g. quick edit, REST, wp_update_post()).
+		if ( ! isset( $_POST['nakedcatplugins_page_language_nonce'] ) ) {
+			return;
+		}
+
+		// WordPress has already verified the post nonce, but we verify our own
+		// as extra confirmation that our metabox submitted these values.
+		if ( ! wp_verify_nonce( sanitize_key( $_POST['nakedcatplugins_page_language_nonce'] ), 'nakedcatplugins_page_language_metabox' ) ) {
+			return;
+		}
+
+		// Bail on autosave and revisions.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		// Check the user has permission to edit this specific post.
+		$post_type_object = get_post_type_object( $post->post_type );
+		if ( ! current_user_can( $post_type_object->cap->edit_post, $post_id ) ) {
+			return;
+		}
+
+		// Save lang — trim and sanitize; delete if empty so the DB stays clean.
+		if ( isset( $_POST['nakedcatplugins_page_lang'] ) ) {
+			$lang = trim( sanitize_text_field( wp_unslash( $_POST['nakedcatplugins_page_lang'] ) ) );
+			if ( ! empty( $lang ) ) {
+				update_post_meta( $post_id, '_nakedcatplugins_page_lang', $lang );
+			} else {
+				delete_post_meta( $post_id, '_nakedcatplugins_page_lang' );
+				delete_post_meta( $post_id, '_nakedcatplugins_page_dir' );
+				return; // If lang is empty, we also delete dir and skip saving it since it doesn't make sense to have a dir without a lang.
+			}
+		}
+
+		// Save dir — whitelist to known values only.
+		if ( isset( $_POST['nakedcatplugins_page_dir'] ) ) {
+			$dir = sanitize_text_field( wp_unslash( $_POST['nakedcatplugins_page_dir'] ) );
+			$dir = in_array( $dir, array( 'ltr', 'rtl' ), true ) ? $dir : 'ltr';
+			update_post_meta( $post_id, '_nakedcatplugins_page_dir', $dir );
+		}
 	}
 
 	/**
