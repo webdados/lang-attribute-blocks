@@ -84,6 +84,11 @@ final class Lang_Attribute_Blocks {
 	private function __construct() {
 		// Hooks
 		$this->init_hooks();
+		// Load locale-specific functionality
+		if ( true ) { // This will be a setting later
+			require_once 'class-lang-attribute-blocks-locale.php';
+			Lang_Attribute_Blocks_Locale::get_instance();
+		}
 	}
 
 	/**
