@@ -213,6 +213,12 @@ final class Lang_Attribute_Blocks {
 			} else {
 				$output .= ' lang="' . $safe_lang . '"';
 			}
+			// Add our class name
+			if ( strpos( $output, 'class=' ) !== false ) {
+				$output = preg_replace( '/class="([^"]*)"/', 'class="$1 naked-cat-plugins-post-has-lang-attr"', $output );
+			} else {
+				$output .= ' class="naked-cat-plugins-post-has-lang-attr"';
+			}
 		}
 
 		if ( ! empty( $page_dir ) && 'rtl' === $page_dir ) {
