@@ -1,10 +1,10 @@
 === Language Attribute for Container Blocks and Pages/Posts ===
 Contributors: nakedcatplugins, webdados
-Tags: language, accessibility, block editor
+Tags: language, accessibility, block editor, gutenberg, classic editor
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.2
-Stable tag: 2.2
+Stable tag: 3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -100,11 +100,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 3.0 - ? =
+= 3.0 - 2026-03-09 =
+* [NEW] Plugin renamed from “Language Attribute for Container Blocks” to “Language Attribute for Container Blocks and Pages/Posts”
 * [NEW] Set the page/post language at the document level: a new “Page Language” panel in the Document Settings sidebar allows overriding the HTML `lang` and `dir` attributes for a specific page or post, independently of the website’s default language
 * [TWEAK] Rename “Language Settings” sidebar block panel to “Block Language”
 * [FIX] Gist URL for changing the highlight color using plain CSS
-* [DEV] Tested up to 7.0-beta2-61784
+* [DEV] Tested up to 7.0-beta3-61865
 
 = 2.2 - 2025-10-20 =
 * [DEV] Implement deployment actions on GitHub
