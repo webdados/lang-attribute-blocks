@@ -84,6 +84,8 @@ final class Lang_Attribute_Blocks {
 	 * @since 2.0
 	 */
 	private function __construct() {
+		// Supported blocks
+		$this->init_blocks();
 		// Languages
 		$this->init_languages();
 		// Hooks
@@ -118,6 +120,10 @@ final class Lang_Attribute_Blocks {
 			self::$instance = new self();
 		}
 		return self::$instance;
+	}
+
+	public function init_blocks() {
+		$this->blocks = apply_filters('nakedcatplugins_blocks', $this->blocks);
 	}
 
 	public function init_languages() {
@@ -314,6 +320,10 @@ final class Lang_Attribute_Blocks {
 						$tag = 'div';
 					}
 					break;
+				case 'core/paragraph':
+					$tag = 'p';
+					break;
+				# TODO other cases?
 				default:
 					// If no specific tag is found, we default to a div
 					$tag = 'div';

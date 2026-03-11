@@ -96,6 +96,13 @@ Yes. Use the `nakedcatplugins_languages` PHP filter and return an array of langu
 E.g., in your `functions.php`: `add_filter( 'nakedcatplugins_languages', function ( $languages ) { return [ 'pt', 'en' ]; } );`
 (Works currently only for blocks, not posts/pages.)
 
+= Is it possible to extend the supported block types? =
+
+Yes. Use the `nakedcatplugins_blocks` PHP filter and return an array of block types you want.
+E.g., in your `functions.php`: `add_filter( 'nakedcatplugins_blocks', function ( $blocks ) { $blocks[] = 'core/paragraph'; return $blocks; }`
+will add support for the Paragraph block.
+Any other block is considered experimental; use at your own risk and test.
+
 = How can I contribute to this plugin? =
 
 [On GitHub](https://github.com/webdados/lang-attribute-blocks)
