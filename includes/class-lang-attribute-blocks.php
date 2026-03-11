@@ -76,12 +76,18 @@ final class Lang_Attribute_Blocks {
 		'core/post-content',
 	);
 
+	private $languages = array();
+
 	/**
 	 * Constructor
 	 *
 	 * @since 2.0
 	 */
 	private function __construct() {
+		// Supported blocks
+		$this->init_blocks();
+		// Languages
+		$this->init_languages();
 		// Hooks
 		$this->init_hooks();
 	}
@@ -114,6 +120,14 @@ final class Lang_Attribute_Blocks {
 			self::$instance = new self();
 		}
 		return self::$instance;
+	}
+
+	public function init_blocks() {
+		$this->blocks = apply_filters('nakedcatplugins_blocks', $this->blocks);
+	}
+
+	public function init_languages() {
+		$this->languages = apply_filters('nakedcatplugins_languages', $this->languages);
 	}
 
 	/**
@@ -306,6 +320,10 @@ final class Lang_Attribute_Blocks {
 						$tag = 'div';
 					}
 					break;
+				case 'core/paragraph':
+					$tag = 'p';
+					break;
+				# TODO other cases?
 				default:
 					// If no specific tag is found, we default to a div
 					$tag = 'div';
@@ -353,6 +371,7 @@ final class Lang_Attribute_Blocks {
 			array(
 				'supportedBlocks'  => $this->blocks,
 				'siteLanguage'     => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US'),
+				'languages'        => $this->languages,
 				'highlightEnabled' => get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false ),
 				'placeholderText'  => sprintf(
 					/* translators: %s: The website's default language code */

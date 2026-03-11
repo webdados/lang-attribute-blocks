@@ -55,7 +55,7 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 
 * Set the language and text direction for an entire page or post, both on the blocks and classic editor: a “Page Language” panel in the Document Settings sidebar overrides the HTML `lang` and `dir` attributes for that specific page
 * Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, mentioned above
-* Show visual outline around blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
+* Show visual outline around and language code for blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
 
 == Screenshots ==
 
@@ -89,6 +89,19 @@ Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfe
 
 If your are working on a WordCamp website, or you don’t want to mess around with PHP, you can also add custom CSS to change the color, overriding our `--nakedcatplugins-lang-attr-highlight-color` variable.
 Here’s a [Gist example](https://gist.github.com/webdados/7179f5be4e224ba84867cf77e9bc9174).
+
+= Is it possible to provide a drop-down of pre-set languages instead of a text field?
+
+Yes. Use the `nakedcatplugins_languages` PHP filter and return an array of languages codes you want.
+E.g., in your `functions.php`: `add_filter( 'nakedcatplugins_languages', function ( $languages ) { return [ 'pt', 'en' ]; } );`
+(Works currently only for blocks, not posts/pages.)
+
+= Is it possible to extend the supported block types? =
+
+Yes. Use the `nakedcatplugins_blocks` PHP filter and return an array of block types you want.
+E.g., in your `functions.php`: `add_filter( 'nakedcatplugins_blocks', function ( $blocks ) { $blocks[] = 'core/paragraph'; return $blocks; }`
+will add support for the Paragraph block.
+Any other block is considered experimental; use at your own risk and test.
 
 = How can I contribute to this plugin? =
 

@@ -6,6 +6,21 @@ body:not(.block-editor-page) *[lang],
 .editor-styles-wrapper .naked-cat-plugins-has-lang-attr {
 	outline: 3px dashed var(--nakedcatplugins-lang-attr-highlight-color) !important;
 	outline-offset: 2px;
+	// Display the language code in the bottom right corner
+	// use ::before because ::after collides with Block Editor's usage
+	&::before {
+		content: attr(lang);
+		color: var(--nakedcatplugins-lang-attr-highlight-color) !important;
+		font-size: small;
+		font-weight: bold;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: auto;
+		text-align: right;
+		pointer-events: none;
+		z-index: 1000;
+	}
 }
 
 html.naked-cat-plugins-post-has-lang-attr {

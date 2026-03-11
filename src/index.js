@@ -37,6 +37,18 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 		const lang = ( attributes.lang || '' ).trim();
 		const dir = attributes.dir || 'ltr';
 
+		let languages = window.nakedCatPluginsLangAttributeBlocks?.languages;
+
+		if ( languages ) {
+			languages = [
+				{ label: '', value: '' }, // 'blank' option
+				...languages.map( ( language ) => ( {
+					label: language,
+					value: language,
+				} ) ),
+			];
+		}
+
 		return (
 			<>
 				<BlockEdit { ...props } />
@@ -45,13 +57,28 @@ const addLangAttributesToGroupBlock = createHigherOrderComponent( ( BlockEdit ) 
 						title={ __( 'Block Language', 'lang-attribute-blocks' ) }
 						initialOpen={ true }
 					>
-						<TextControl
-							label={ __( 'Language Code', 'lang-attribute-blocks' ) }
-							value={ lang }
-							onChange={ ( value ) => setAttributes( { lang: value.trim() } ) }
-							placeholder={ window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)' }
-							help={ __( "Valid language code for this block, like “fr” or “pt-PT”, if different from the website's or page's main language (shown as a placeholder)", 'lang-attribute-blocks' ) }
-						/>
+						{ languages ? (
+							<SelectControl
+								label={ __('Language Code', 'lang-attribute-blocks') }
+								value={ lang }
+								options={ languages }
+								onChange={ ( value ) => setAttributes( { lang: value } ) }
+							/>
+						) : (
+							<TextControl
+								label={ __( 'Language Code', 'lang-attribute-blocks' ) }
+								value={ lang }
+								onChange={ ( value ) => setAttributes( { lang: value } ) }
+								placeholder={
+									window.nakedCatPluginsLangAttributeBlocks?.placeholderText ||
+									'en (default website language)'
+								}
+								help={ __(
+									'Valid language code, like “fr” or “pt-PT”, if different from the website main language (shown as a placeholder)',
+									'lang-attribute-blocks',
+								) }
+							/>
+						)}
 						<SelectControl
 							label={ __( 'Text Direction', 'lang-attribute-blocks' ) }
 							value={ dir }
@@ -122,7 +149,13 @@ const withLangAttr = createHigherOrderComponent( ( BlockListBlock ) => {
 			return <BlockListBlock { ...props } />;
 		}
 
-		return <BlockListBlock { ...props } className={ 'naked-cat-plugins-has-lang-attr' } />
+		return (
+			<BlockListBlock
+				{ ...props }
+				className={ 'naked-cat-plugins-has-lang-attr' }
+				wrapperProps={ { lang: props.block.attributes.lang } }
+			/>
+		);
 	}
 }, 'withLangAttr' );
 
