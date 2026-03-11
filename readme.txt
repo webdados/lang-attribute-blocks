@@ -55,7 +55,7 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 
 * Set the language and text direction for an entire page or post, both on the blocks and classic editor: a “Page Language” panel in the Document Settings sidebar overrides the HTML `lang` and `dir` attributes for that specific page
 * Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, mentioned above
-* Show visual outline around blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
+* Show visual outline around and language code for blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
 
 == Screenshots ==
 

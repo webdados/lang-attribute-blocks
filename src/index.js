@@ -122,7 +122,13 @@ const withLangAttr = createHigherOrderComponent( ( BlockListBlock ) => {
 			return <BlockListBlock { ...props } />;
 		}
 
-		return <BlockListBlock { ...props } className={ 'naked-cat-plugins-has-lang-attr' } />
+		return (
+			<BlockListBlock
+				{ ...props }
+				className={ 'naked-cat-plugins-has-lang-attr' }
+				wrapperProps={ { lang: props.block.attributes.lang } }
+			/>
+		);
 	}
 }, 'withLangAttr' );
 
