@@ -90,6 +90,12 @@ Here’s a [Gist example](https://gist.github.com/webdados/61197dd2e98f399ba2cfe
 If your are working on a WordCamp website, or you don’t want to mess around with PHP, you can also add custom CSS to change the color, overriding our `--nakedcatplugins-lang-attr-highlight-color` variable.
 Here’s a [Gist example](https://gist.github.com/webdados/7179f5be4e224ba84867cf77e9bc9174).
 
+= Is it possible to provide a drop-down of pre-set languages instead of a text field?
+
+Yes. Use the `nakedcatplugins_languages` PHP filter and return an array of languages codes you want.
+E.g., in your `functions.php`: `add_filter( 'nakedcatplugins_languages', function ( $languages ) { return [ 'pt', 'en' ]; } );`
+(Works currently only for blocks, not posts/pages.)
+
 = How can I contribute to this plugin? =
 
 [On GitHub](https://github.com/webdados/lang-attribute-blocks)
