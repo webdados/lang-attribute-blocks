@@ -2,27 +2,27 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Language Attribute for Container Blocks and Pages/Posts 2.2\n"
+"Project-Id-Version: Language Attribute for Container Blocks and Pages/Posts 3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/lang-attribute-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-09T12:04:28+00:00\n"
+"POT-Creation-Date: 2026-06-04T14:00:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: lang-attribute-blocks\n"
 
 #. Plugin Name of the plugin
 #: lang-attribute-blocks.php
-#: includes/class-lang-attribute-blocks.php:454
+#: includes/class-lang-attribute-blocks.php:625
 msgid "Language Attribute for Container Blocks and Pages/Posts"
 msgstr ""
 
 #. Description of the plugin
 #: lang-attribute-blocks.php
-msgid "Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, or to the whole page/post."
+msgid "Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, Templates, or to specific Posts/pages."
 msgstr ""
 
 #. Author of the plugin
@@ -36,68 +36,73 @@ msgid "https://nakedcatplugins.com"
 msgstr ""
 
 #. translators: %s: The website's default language code
-#: includes/class-lang-attribute-blocks.php:359
-#: includes/class-lang-attribute-blocks.php:544
+#: includes/class-lang-attribute-blocks.php:515
+#: includes/class-lang-attribute-blocks.php:715
+#, php-format
 msgid "%s (default website language)"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:462
+#: includes/class-lang-attribute-blocks.php:633
 msgid "Highlight blocks with lang attribute"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:476
+#: includes/class-lang-attribute-blocks.php:647
 msgid "Configure Language Attribute for Container Blocks and Pages/Posts plugin settings."
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:489
+#: includes/class-lang-attribute-blocks.php:660
 msgid "Show visual outline around blocks that have a language attribute set"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:492
+#: includes/class-lang-attribute-blocks.php:663
 msgid "When enabled, blocks with a language attribute will be visually highlighted with a red dashed outline in both the editor and frontend (only for Administrators and Editors)."
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:518
-#: build/index.js:1
-#: src/index.js:165
+#: includes/class-lang-attribute-blocks.php:689
+#: build/index.js:2
+#: src/index.js:226
 msgid "Page Language"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:550
+#: includes/class-lang-attribute-blocks.php:721
 #: build/index.js:1
+#: build/index.js:2
 #: src/index.js:49
-#: src/index.js:168
+#: src/index.js:229
 msgid "Language Code"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:554
-#: build/index.js:1
-#: src/index.js:172
+#: includes/class-lang-attribute-blocks.php:725
+#: build/index.js:2
+#: src/index.js:217
 msgid "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:559
+#: includes/class-lang-attribute-blocks.php:730
 #: build/index.js:1
+#: build/index.js:2
 #: src/index.js:56
-#: src/index.js:175
+#: src/index.js:239
 msgid "Text Direction"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:563
+#: includes/class-lang-attribute-blocks.php:734
 #: build/index.js:1
+#: build/index.js:2
 #: src/index.js:59
-#: src/index.js:178
+#: src/index.js:242
 msgid "Left to right"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:566
+#: includes/class-lang-attribute-blocks.php:737
 #: build/index.js:1
+#: build/index.js:2
 #: src/index.js:60
-#: src/index.js:179
+#: src/index.js:243
 msgid "Right to left"
 msgstr ""
 
-#: includes/class-lang-attribute-blocks.php:649
+#: includes/class-lang-attribute-blocks.php:820
 msgid "Settings"
 msgstr ""
 
@@ -109,4 +114,21 @@ msgstr ""
 #: build/index.js:1
 #: src/index.js:53
 msgid "Valid language code for this block, like “fr” or “pt-PT”, if different from the website's or page's main language (shown as a placeholder)"
+msgstr ""
+
+#. translators: %s: The template's default language code
+#: build/index.js:2
+#: src/index.js:211
+#, js-format
+msgid "%s (default template language)"
+msgstr ""
+
+#: build/index.js:2
+#: src/index.js:216
+msgid "Valid language code for this template, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute on all posts set to this template, unless overridden at the post level"
+msgstr ""
+
+#: build/index.js:2
+#: src/index.js:226
+msgid "Template Language"
 msgstr ""

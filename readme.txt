@@ -1,14 +1,14 @@
 === Language Attribute for Container Blocks and Pages/Posts ===
 Contributors: nakedcatplugins, webdados
-Tags: language, accessibility, block editor, gutenberg, classic editor
+Tags: language, accessibility, block editor, Gutenberg, classic editor
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.2
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, or to the whole page/post.
+Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, Templates, or to specific Posts/pages.
 
 == Description ==
 
@@ -16,13 +16,13 @@ This plugin aims to ensure that any language change in a page’s content is ind
 
 This feature is available on the core block editor only at a text formatting level after code from [Jb Audras plugin “Lang Attribute for the Block Editor”](https://wordpress.org/plugins/lang-attribute/) was merged into core. The objective of this plugin is to provide the same functionality at a container block level (Group - including all its variants, Columns, Cover, and other specific block types) so that the language applies to all child elements, no matter the kind of content inside.
 
-The plugin also supports setting the language at the page or post level, both on the blocks and classic editor. When an entire page is written in a different language than the website’s default, you can override the HTML `lang` and `dir` attributes for that specific page directly from the Document Settings sidebar, without needing to wrap everything in a container block.
-
+The plugin also supports setting the language at the page or post level, both on the blocks and the classic editor. When an entire page is written in a different language than the website’s default, you can override the HTML `lang` and `dir` attributes for that specific page directly from the Document Settings sidebar, without needing to wrap everything in a container block.
+For even broader coverage, the plugin supports setting the language at the template level in the Site Editor (Appearance → Editor → Templates). A language set on a template is automatically applied to all pages and posts using that template, unless a specific language is set at the individual post or page level — in which case the post-level setting takes precedence.
 This plugin is heavily inspired by the Jb Audras plugin (including this readme file). The development started at WordCamp Europe 2025 Contributor Day, by Marco Almeida from [Naked Cat Plugins](https://profiles.wordpress.org/nakedcatplugins/) / [Webdados](https://profiles.wordpress.org/webdados/), and the help from [Ryan Welcher](https://profiles.wordpress.org/welcher/) on the code side and [Amber Hinds](https://profiles.wordpress.org/alh0319/) on the accessibility compliance side.
 
 For more context: this plugin helps you to make your website compliant with the Web Content Accessibility Guidelines (WCAG) success criteria:
 
-* **3.1.1 – Language of Page**: The default human language of each web page can be programmatically determined. Use the page-level setting when an entire page or post is written in a language other than the website’s default.
+* **3.1.1 – Language of Page**: The default human language of each web page can be programmatically determined. Use the template-level setting when all posts or pages sharing a template are in the same language, or the page-level setting when an entire page or post is written in a language other than the website or template default.
 * **3.1.2 – Language of Parts**: The human language of each passage or phrase in the content can be programmatically determined. Use the block-level setting when only specific sections within a page are in a different language.
 
 The purpose of these success criteria is to ensure that user agents can correctly present content written in multiple languages.
@@ -53,7 +53,8 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 
 == Features ==
 
-* Set the language and text direction for an entire page or post, both on the blocks and classic editor: a “Page Language” panel in the Document Settings sidebar overrides the HTML `lang` and `dir` attributes for that specific page
+* Set the language and text direction at the **template level** in the Site Editor: a "Template Language" panel lets you define the default language for all pages and posts using that template, which is automatically applied unless overridden at the individual post or page level
+* Set the language and text direction for an **individual page or post**, both on the blocks and classic editor: a "Page Language" panel in the Document Settings sidebar overrides the HTML `lang` and `dir` attributes for that specific page, taking precedence over any template-level setting
 * Add `lang` and `dir` attributes to Group, Columns, Cover, and other specific WordPress Blocks, mentioned above
 * Show visual outline around blocks that have a language attribute set - For easy identification of blocks you have already set to a different language during your editing process, only for Administrators and Editors, and if enabled in Settings - Writing
 
@@ -66,15 +67,17 @@ Banner photo by [Hannah Wright](https://unsplash.com/@hannahwrightdesigner?utm_c
 == Installation ==
 
 1. Install the plugin and activate it.
-2. To set the language for an entire page or post: open the Document Settings sidebar (the panel icon at the top right of the editor) and use the “Page Language” panel.
-3. To set the language for a specific section within a page: insert a Group, Columns, Cover (or other specific) block, and use the “Block Language” sidebar panel to set the language for all the content inside that container.
+2. To set the language for all pages and posts using a given template: go to Appearance → Editor → Templates, open the desired template, and use the "Template Language" panel in the template settings sidebar.
+3. To set the language for an individual page or post (overriding any template-level setting): open the Document Settings sidebar (the panel icon at the top right of the editor) and use the "Page Language" panel.
+4. To set the language for a specific section within a page: insert a Group, Columns, Cover (or other specific) block, and use the "Block Language" sidebar panel to set the language for all the content inside that container.
 
 == Frequently Asked Questions ==
 
-= When should I use the page-level language setting instead of a block-level one? =
+= When should I use the template-level, page-level, or block-level language setting? =
 
-Use the **Page Language** setting (in the Document Settings sidebar) when the entire page or post is written in a different language than the website default. This overrides the `lang` attribute on the HTML element itself, which corresponds to WCAG 3.1.1 (Language of Page).
-In this case, we also recommend creating a dedicated template in the Site Editor (Appearance → Editor → Templates) where shared template parts — such as the header and footer — are also in that same language.
+Use the **Template Language** setting (in the Site Editor, under Appearance → Editor → Templates) when you have a group of pages or posts that all share the same language and use the same template — for example, a dedicated template for all your French-language posts. The language set on the template is automatically applied to every page or post using it, so you don't need to configure each one individually. It can always be overridden at the individual post or page level.
+
+Use the **Page Language** setting (in the Document Settings sidebar) when a specific page or post is written in a different language — either overriding the template-level setting or setting it independently when no template language is defined. This overrides the `lang` attribute on the HTML element itself, which corresponds to WCAG 3.1.1 (Language of Page).
 
 Use the **Block Language** setting (in the block’s sidebar panel) when only a specific section within a page is in a different language, while the rest of the page remains in the site’s default language. This corresponds to WCAG 3.1.2 (Language of Parts).
 
@@ -103,6 +106,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = 3.1 - 2026-06-04 =
 * [NEW] Add a template language option in the Site Editor templates, used as the default page/post language when no page/post language is set
 * [FIX] Load editor styles with `enqueue_block_assets` to avoid iframe style warnings
+* [DEV] Tested up to 7.1-alpha-62456
 
 = 3.0 - 2026-03-09 =
 * [NEW] Plugin renamed from “Language Attribute for Container Blocks” to “Language Attribute for Container Blocks and Pages/Posts”
