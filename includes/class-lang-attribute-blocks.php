@@ -143,6 +143,8 @@ final class Lang_Attribute_Blocks {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 		// Enqueue block styles in editor iframe context.
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
+		// Expose template language/direction via REST so the block editor can read and save it.
+		add_action( 'rest_api_init', array( $this, 'register_template_lang_rest_field' ) );
 		// Enqueues CSS assets for the frontend
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
 		// Add settings section to Settings > Writing page
@@ -259,6 +261,56 @@ final class Lang_Attribute_Blocks {
 	}
 
 	/**
+	 * Expose template language/direction as a REST field so the block editor
+	 * entity store can read and save it via useEntityProp.
+	 *
+	 * WP_REST_Templates_Controller does not expose registered post meta in its
+	 * responses, so register_post_meta with show_in_rest has no effect for
+	 * wp_template. This method registers a dedicated REST field instead.
+	 *
+	 * @since 3.1
+	 * @hook rest_api_init
+	 * @return void
+	 */
+	public function register_template_lang_rest_field() {
+		register_rest_field(
+			'wp_template',
+			'nakedcatplugins_lang_meta',
+			array(
+				'get_callback'    => function ( $item ) {
+					$wp_id = $item['wp_id'] ?? 0;
+					return array(
+						'lang' => trim( get_post_meta( $wp_id, '_nakedcatplugins_page_lang', true ) ),
+						'dir'  => trim( get_post_meta( $wp_id, '_nakedcatplugins_page_dir', true ) ) ?: 'ltr',
+					);
+				},
+				'update_callback' => function ( $value, $object ) {
+					$wp_id = is_object( $object ) && isset( $object->wp_id ) ? (int) $object->wp_id : 0;
+					if ( ! $wp_id ) {
+						return;
+					}
+					$lang = trim( sanitize_text_field( $value['lang'] ?? '' ) );
+					$dir  = in_array( $value['dir'] ?? 'ltr', array( 'ltr', 'rtl' ), true ) ? $value['dir'] : 'ltr';
+					if ( ! empty( $lang ) ) {
+						update_post_meta( $wp_id, '_nakedcatplugins_page_lang', $lang );
+						update_post_meta( $wp_id, '_nakedcatplugins_page_dir', $dir );
+					} else {
+						delete_post_meta( $wp_id, '_nakedcatplugins_page_lang' );
+						delete_post_meta( $wp_id, '_nakedcatplugins_page_dir' );
+					}
+				},
+				'schema'          => array(
+					'type'       => 'object',
+					'properties' => array(
+						'lang' => array( 'type' => 'string', 'default' => '' ),
+						'dir'  => array( 'type' => 'string', 'default' => 'ltr', 'enum' => array( 'ltr', 'rtl' ) ),
+					),
+				),
+			)
+		);
+	}
+
+	/**
 	 * Get language and direction metadata from the assigned block template.
 	 *
 	 * @since 3.1
@@ -266,6 +318,23 @@ final class Lang_Attribute_Blocks {
 	 * @return array{lang:string,dir:string} Template language and direction values.
 	 */
 	private function get_template_lang_and_dir( int $post_id ) {
+		// In block themes, locate_block_template() (hooked to template_include) sets
+		// $_wp_current_template_id to the resolved template ID (e.g. 'theme//single-product')
+		// before template-canvas.php calls language_attributes(). Use it as the primary
+		// source so templates applied via the hierarchy (not assigned per-post) are found.
+		global $_wp_current_template_id;
+		if ( ! empty( $_wp_current_template_id ) ) {
+			$template = get_block_template( $_wp_current_template_id, 'wp_template' );
+			if ( $template && ! empty( $template->wp_id ) ) {
+				return array(
+					'lang' => trim( get_post_meta( $template->wp_id, '_nakedcatplugins_page_lang', true ) ),
+					'dir'  => trim( get_post_meta( $template->wp_id, '_nakedcatplugins_page_dir', true ) ),
+				);
+			}
+			return array( 'lang' => '', 'dir' => '' );
+		}
+
+		// Fallback: explicit page template assigned to this post (_wp_page_template meta).
 		$template_slug = get_page_template_slug( $post_id );
 		if ( empty( $template_slug ) || 'default' === $template_slug ) {
 			return array(

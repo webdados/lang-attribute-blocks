@@ -186,11 +186,24 @@ const PageLanguageControls = () => {
 		[ templateEntityId ]
 	);
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId );
-	const isMetaReady = meta && typeof meta === 'object';
+	const [ templateLangMeta, setTemplateLangMeta ] = useEntityProp(
+		'postType',
+		'wp_template',
+		'nakedcatplugins_lang_meta',
+		isTemplateEditor ? postId : undefined
+	);
 
-	const pageLang = ( meta?._nakedcatplugins_page_lang ?? '' ).trim();
-	const pageDir = meta?._nakedcatplugins_page_dir ?? 'ltr';
-	const templateDefaultLang = ( template?.meta?._nakedcatplugins_page_lang ?? '' ).trim();
+	const isReady = isTemplateEditor
+		? ( templateLangMeta !== undefined )
+		: ( meta !== undefined && typeof meta === 'object' );
+
+	const pageLang = isTemplateEditor
+		? ( templateLangMeta?.lang ?? '' ).trim()
+		: ( meta?._nakedcatplugins_page_lang ?? '' ).trim();
+	const pageDir = isTemplateEditor
+		? ( templateLangMeta?.dir ?? 'ltr' )
+		: ( meta?._nakedcatplugins_page_dir ?? 'ltr' );
+	const templateDefaultLang = ( template?.nakedcatplugins_lang_meta?.lang ?? '' ).trim();
 	const websiteLanguagePlaceholder = window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)';
 	const fieldPlaceholder = ! isTemplateEditor && templateDefaultLang
 		? sprintf(
@@ -203,7 +216,7 @@ const PageLanguageControls = () => {
 		? __( "Valid language code for this template, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute on all posts set to this template, unless overridden at the post level", 'lang-attribute-blocks' )
 		: __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' );
 
-	if ( ! isEditablePostType || ! isMetaReady ) {
+	if ( ! isEditablePostType || ! isReady ) {
 		return null;
 	}
 
@@ -215,7 +228,10 @@ const PageLanguageControls = () => {
 			<TextControl
 				label={ __( 'Language Code', 'lang-attribute-blocks' ) }
 				value={ pageLang }
-				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_lang: value.trim() } ) }
+				onChange={ ( value ) => isTemplateEditor
+					? setTemplateLangMeta( { ...templateLangMeta, lang: value.trim() } )
+					: setMeta( { ...meta, _nakedcatplugins_page_lang: value.trim() } )
+				}
 				placeholder={ fieldPlaceholder }
 				help={ fieldHelpText }
 			/>
@@ -226,7 +242,10 @@ const PageLanguageControls = () => {
 					{ label: __( 'Left to right', 'lang-attribute-blocks' ), value: 'ltr' },
 					{ label: __( 'Right to left', 'lang-attribute-blocks' ), value: 'rtl' },
 				]}
-				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_dir: value } ) }
+				onChange={ ( value ) => isTemplateEditor
+					? setTemplateLangMeta( { ...templateLangMeta, dir: value } )
+					: setMeta( { ...meta, _nakedcatplugins_page_dir: value } )
+				}
 			/>
 		</PluginDocumentSettingPanel>
 	);
