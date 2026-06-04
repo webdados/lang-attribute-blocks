@@ -279,13 +279,14 @@ final class Lang_Attribute_Blocks {
 			array(
 				'get_callback'    => function ( $item ) {
 					$wp_id = $item['wp_id'] ?? 0;
+					$dir   = trim( get_post_meta( $wp_id, '_nakedcatplugins_page_dir', true ) );
 					return array(
 						'lang' => trim( get_post_meta( $wp_id, '_nakedcatplugins_page_lang', true ) ),
-						'dir'  => trim( get_post_meta( $wp_id, '_nakedcatplugins_page_dir', true ) ) ?: 'ltr',
+						'dir'  => $dir ? $dir : 'ltr',
 					);
 				},
-				'update_callback' => function ( $value, $object ) {
-					$wp_id = is_object( $object ) && isset( $object->wp_id ) ? (int) $object->wp_id : 0;
+				'update_callback' => function ( $value, $post_obj ) {
+					$wp_id = is_object( $post_obj ) && isset( $post_obj->wp_id ) ? (int) $post_obj->wp_id : 0;
 					if ( ! $wp_id ) {
 						return;
 					}
@@ -302,8 +303,15 @@ final class Lang_Attribute_Blocks {
 				'schema'          => array(
 					'type'       => 'object',
 					'properties' => array(
-						'lang' => array( 'type' => 'string', 'default' => '' ),
-						'dir'  => array( 'type' => 'string', 'default' => 'ltr', 'enum' => array( 'ltr', 'rtl' ) ),
+						'lang' => array(
+							'type'    => 'string',
+							'default' => '',
+						),
+						'dir'  => array(
+							'type'    => 'string',
+							'default' => 'ltr',
+							'enum'    => array( 'ltr', 'rtl' ),
+						),
 					),
 				),
 			)
@@ -331,7 +339,10 @@ final class Lang_Attribute_Blocks {
 					'dir'  => trim( get_post_meta( $template->wp_id, '_nakedcatplugins_page_dir', true ) ),
 				);
 			}
-			return array( 'lang' => '', 'dir' => '' );
+			return array(
+				'lang' => '',
+				'dir'  => '',
+			);
 		}
 
 		// Fallback: explicit page template assigned to this post (_wp_page_template meta).
@@ -494,12 +505,12 @@ final class Lang_Attribute_Blocks {
 			'nakedcatplugins-lang-attribute-blocks-script',
 			'nakedCatPluginsLangAttributeBlocks',
 			array(
-				'supportedBlocks'  => $this->blocks,
-				'siteLanguage'     => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US'),
-				'currentTheme'     => get_stylesheet(),
-				'editablePostTypes'=> $this->get_page_lang_meta_post_types(),
-				'highlightEnabled' => get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false ),
-				'placeholderText'  => sprintf(
+				'supportedBlocks'   => $this->blocks,
+				'siteLanguage'      => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US'),
+				'currentTheme'      => get_stylesheet(),
+				'editablePostTypes' => $this->get_page_lang_meta_post_types(),
+				'highlightEnabled'  => get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false ),
+				'placeholderText'   => sprintf(
 					/* translators: %s: The website's default language code */
 					__( '%s (default website language)', 'lang-attribute-blocks' ),
 					get_bloginfo( 'language' )
@@ -509,7 +520,6 @@ final class Lang_Attribute_Blocks {
 
 		// Set script translations
 		wp_set_script_translations( 'lang-attribute-blocks-script', 'lang-attribute-blocks' );
-
 	}
 
 	/**
