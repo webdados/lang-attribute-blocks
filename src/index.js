@@ -156,9 +156,6 @@ const PageLanguageControls = () => {
 	);
 	const editablePostTypes = window.nakedCatPluginsLangAttributeBlocks?.editablePostTypes || [];
 	const isEditablePostType = !! postType && editablePostTypes.includes( postType );
-	if ( ! isEditablePostType ) {
-		return null;
-	}
 	const isTemplateEditor = postType === 'wp_template';
 	const selectedTemplateSlugRaw = useSelect(
 		( select ) => {
@@ -200,6 +197,10 @@ const PageLanguageControls = () => {
 	const fieldHelpText = isTemplateEditor
 		? __( "Valid language code for this template, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute on all posts set to this template, unless overridden at the post level", 'lang-attribute-blocks' )
 		: __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' );
+
+	if ( ! isEditablePostType ) {
+		return null;
+	}
 
 	return (
 		<PluginDocumentSettingPanel
