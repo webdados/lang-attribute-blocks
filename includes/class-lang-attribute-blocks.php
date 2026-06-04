@@ -182,8 +182,11 @@ final class Lang_Attribute_Blocks {
 				return current_user_can( 'edit_posts' );
 			},
 		);
-		// Register for all public post types
-		foreach ( get_post_types( array( 'public' => true ) ) as $post_type ) {
+		$post_types = get_post_types( array( 'public' => true ) );
+		$post_types = array_unique( array_merge( $post_types, array( 'wp_template' ) ) );
+
+		// Register for all public post types and templates.
+		foreach ( $post_types as $post_type ) {
 			register_post_meta( $post_type, '_nakedcatplugins_page_lang', $args_lang );
 			register_post_meta( $post_type, '_nakedcatplugins_page_dir', $args_dir );
 		}
@@ -208,6 +211,14 @@ final class Lang_Attribute_Blocks {
 		$post_id   = get_queried_object_id();
 		$page_lang = trim( get_post_meta( $post_id, '_nakedcatplugins_page_lang', true ) );
 		$page_dir  = trim( get_post_meta( $post_id, '_nakedcatplugins_page_dir', true ) );
+
+		$template_lang_and_dir = $this->get_template_lang_and_dir( $post_id );
+		if ( empty( $page_lang ) && ! empty( $template_lang_and_dir['lang'] ) ) {
+			$page_lang = $template_lang_and_dir['lang'];
+		}
+		if ( empty( $page_dir ) && ! empty( $template_lang_and_dir['dir'] ) ) {
+			$page_dir = $template_lang_and_dir['dir'];
+		}
 
 		if ( ! empty( $page_lang ) ) {
 			$safe_lang = esc_attr( $page_lang );
@@ -234,6 +245,58 @@ final class Lang_Attribute_Blocks {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Get language and direction metadata from the assigned block template.
+	 *
+	 * @since 3.1
+	 * @param int $post_id The singular post ID.
+	 * @return array{lang:string,dir:string} Template language and direction values.
+	 */
+	private function get_template_lang_and_dir( int $post_id ) {
+		$template_slug = get_page_template_slug( $post_id );
+		if ( empty( $template_slug ) || 'default' === $template_slug ) {
+			return array(
+				'lang' => '',
+				'dir'  => '',
+			);
+		}
+
+		$template_slug = preg_replace( '#^templates/#', '', $template_slug );
+		$template_slug = preg_replace( '#\.html$#', '', $template_slug );
+		if ( empty( $template_slug ) ) {
+			return array(
+				'lang' => '',
+				'dir'  => '',
+			);
+		}
+
+		$theme_slugs = array_unique(
+			array_filter(
+				array(
+					get_stylesheet(),
+					get_template(),
+				)
+			)
+		);
+
+		foreach ( $theme_slugs as $theme_slug ) {
+			$template = get_block_template( $theme_slug . '//' . $template_slug, 'wp_template' );
+			if ( ! $template || empty( $template->wp_id ) ) {
+				continue;
+			}
+
+			return array(
+				'lang' => trim( get_post_meta( $template->wp_id, '_nakedcatplugins_page_lang', true ) ),
+				'dir'  => trim( get_post_meta( $template->wp_id, '_nakedcatplugins_page_dir', true ) ),
+			);
+		}
+
+		return array(
+			'lang' => '',
+			'dir'  => '',
+		);
 	}
 
 	/**
@@ -353,6 +416,7 @@ final class Lang_Attribute_Blocks {
 			array(
 				'supportedBlocks'  => $this->blocks,
 				'siteLanguage'     => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US'),
+				'currentTheme'     => get_stylesheet(),
 				'highlightEnabled' => get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false ),
 				'placeholderText'  => sprintf(
 					/* translators: %s: The website's default language code */

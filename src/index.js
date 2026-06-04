@@ -4,7 +4,7 @@
 
 import './index.scss';
 
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
 import { TextControl, SelectControl, PanelBody } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
@@ -154,22 +154,59 @@ const PageLanguageControls = () => {
 		( select ) => select( 'core/editor' ).getCurrentPostType(),
 		[]
 	);
+	const isTemplateEditor = postType === 'wp_template';
+	const selectedTemplateSlugRaw = useSelect(
+		( select ) => {
+			if ( isTemplateEditor ) {
+				return '';
+			}
+			return select( 'core/editor' ).getEditedPostAttribute( 'template' ) || '';
+		},
+		[ isTemplateEditor ]
+	);
+	const selectedTemplateSlug = selectedTemplateSlugRaw
+		.replace( /^templates\//, '' )
+		.replace( /\.html$/, '' );
+	const templateEntityId = selectedTemplateSlug && window.nakedCatPluginsLangAttributeBlocks?.currentTheme
+		? `${ window.nakedCatPluginsLangAttributeBlocks.currentTheme }//${ selectedTemplateSlug }`
+		: '';
+	const template = useSelect(
+		( select ) => {
+			if ( ! templateEntityId ) {
+				return null;
+			}
+			return select( 'core' ).getEntityRecord( 'postType', 'wp_template', templateEntityId );
+		},
+		[ templateEntityId ]
+	);
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
 
 	const pageLang = ( meta?._nakedcatplugins_page_lang ?? '' ).trim();
 	const pageDir = meta?._nakedcatplugins_page_dir ?? 'ltr';
+	const templateDefaultLang = ( template?.meta?._nakedcatplugins_page_lang ?? '' ).trim();
+	const websiteLanguagePlaceholder = window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)';
+	const fieldPlaceholder = ! isTemplateEditor && templateDefaultLang
+		? sprintf(
+			/* translators: %s: The template's default language code */
+			__( '%s (default template language)', 'lang-attribute-blocks' ),
+			templateDefaultLang
+		)
+		: websiteLanguagePlaceholder;
+	const fieldHelpText = isTemplateEditor
+		? __( "Valid language code for this template, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute on all posts set to this template, unless overridden at the post level", 'lang-attribute-blocks' )
+		: __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' );
 
 	return (
 		<PluginDocumentSettingPanel
 			name="nakedcatplugins-page-lang-panel"
-			title={ __( 'Page Language', 'lang-attribute-blocks' ) }
+			title={ isTemplateEditor ? __( 'Template Language', 'lang-attribute-blocks' ) : __( 'Page Language', 'lang-attribute-blocks' ) }
 		>
 			<TextControl
 				label={ __( 'Language Code', 'lang-attribute-blocks' ) }
 				value={ pageLang }
 				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_lang: value.trim() } ) }
-				placeholder={ window.nakedCatPluginsLangAttributeBlocks?.placeholderText || 'en (default website language)' }
-				help={ __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' ) }
+				placeholder={ fieldPlaceholder }
+				help={ fieldHelpText }
 			/>
 			<SelectControl
 				label={ __( 'Text Direction', 'lang-attribute-blocks' ) }
