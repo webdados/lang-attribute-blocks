@@ -164,7 +164,7 @@ const PageLanguageControls = () => {
 		},
 		[ isTemplateEditor ]
 	);
-	const selectedTemplateSlug = selectedTemplateSlugRaw
+	const selectedTemplateSlug = String( selectedTemplateSlugRaw || '' )
 		.replace( /^templates\//, '' )
 		.replace( /\.html$/, '' );
 	const templateEntityId = selectedTemplateSlug && window.nakedCatPluginsLangAttributeBlocks?.currentTheme
