@@ -154,6 +154,11 @@ const PageLanguageControls = () => {
 		( select ) => select( 'core/editor' ).getCurrentPostType(),
 		[]
 	);
+	const editablePostTypes = window.nakedCatPluginsLangAttributeBlocks?.editablePostTypes || [];
+	const isEditablePostType = !! postType && editablePostTypes.includes( postType );
+	if ( ! isEditablePostType ) {
+		return null;
+	}
 	const isTemplateEditor = postType === 'wp_template';
 	const selectedTemplateSlugRaw = useSelect(
 		( select ) => {

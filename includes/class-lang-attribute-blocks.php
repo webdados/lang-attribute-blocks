@@ -182,14 +182,23 @@ final class Lang_Attribute_Blocks {
 				return current_user_can( 'edit_posts' );
 			},
 		);
-		$post_types = get_post_types( array( 'public' => true ) );
-		$post_types = array_unique( array_merge( $post_types, array( 'wp_template' ) ) );
-
 		// Register for all public post types and templates.
-		foreach ( $post_types as $post_type ) {
+		foreach ( $this->get_page_lang_meta_post_types() as $post_type ) {
 			register_post_meta( $post_type, '_nakedcatplugins_page_lang', $args_lang );
 			register_post_meta( $post_type, '_nakedcatplugins_page_dir', $args_dir );
 		}
+	}
+
+	/**
+	 * Get post types where page language metadata is registered.
+	 *
+	 * @since 3.1
+	 * @return array Registered post types.
+	 */
+	private function get_page_lang_meta_post_types() {
+		$post_types   = get_post_types( array( 'public' => true ) );
+		$post_types[] = 'wp_template';
+		return array_values( array_unique( $post_types ) );
 	}
 
 	/**
@@ -417,6 +426,7 @@ final class Lang_Attribute_Blocks {
 				'supportedBlocks'  => $this->blocks,
 				'siteLanguage'     => get_bloginfo( 'language' ), // This will get the site language (e.g., 'en-US'),
 				'currentTheme'     => get_stylesheet(),
+				'editablePostTypes'=> $this->get_page_lang_meta_post_types(),
 				'highlightEnabled' => get_option( 'nakedcatplugins_lang_attr_highlight_blocks', false ),
 				'placeholderText'  => sprintf(
 					/* translators: %s: The website's default language code */
