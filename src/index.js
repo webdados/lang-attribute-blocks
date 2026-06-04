@@ -186,7 +186,6 @@ const PageLanguageControls = () => {
 		[ templateEntityId ]
 	);
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId );
-	const hasPostId = postId !== undefined && postId !== null;
 	const isMetaReady = meta && typeof meta === 'object';
 
 	const pageLang = ( meta?._nakedcatplugins_page_lang ?? '' ).trim();
@@ -204,7 +203,7 @@ const PageLanguageControls = () => {
 		? __( "Valid language code for this template, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute on all posts set to this template, unless overridden at the post level", 'lang-attribute-blocks' )
 		: __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' );
 
-	if ( ! isEditablePostType || ! hasPostId || ! isMetaReady ) {
+	if ( ! isEditablePostType || ! isMetaReady ) {
 		return null;
 	}
 

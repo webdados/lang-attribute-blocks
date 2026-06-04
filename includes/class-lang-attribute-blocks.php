@@ -141,6 +141,8 @@ final class Lang_Attribute_Blocks {
 		add_filter( 'language_attributes', array( $this, 'apply_page_lang_attribute' ) );
 		// Enqueues JavaScript and CSS assets for the WordPress block editor
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+		// Enqueue block styles in editor iframe context.
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
 		// Enqueues CSS assets for the frontend
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
 		// Add settings section to Settings > Writing page
@@ -439,7 +441,23 @@ final class Lang_Attribute_Blocks {
 		// Set script translations
 		wp_set_script_translations( 'lang-attribute-blocks-script', 'lang-attribute-blocks' );
 
-		// Enqueue the CSS styles for the block editor
+	}
+
+	/**
+	 * Enqueue block CSS in editor/iframe context.
+	 *
+	 * This keeps styles loaded inside the editor iframe via enqueue_block_assets,
+	 * avoiding iframe style warnings from enqueue_block_editor_assets-only loading.
+	 *
+	 * @since 3.1
+	 * @hook enqueue_block_assets
+	 * @return void
+	 */
+	public function enqueue_block_assets() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		wp_enqueue_style(
 			'nakedcatplugins-lang-attribute-blocks-style',
 			plugins_url( 'build/index.css', NAKEDCATPLUGINS_LANG_ATTRIBUTE_BLOCKS_FILE ),
