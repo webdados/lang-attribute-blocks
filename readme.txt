@@ -100,6 +100,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.1 - 2026-06-04 =
+* [NEW] Add a template language option in the Site Editor templates, used as the default page/post language when no page/post language is set
+* [FIX] Load editor styles with `enqueue_block_assets` to avoid iframe style warnings
+
 = 3.0 - 2026-03-09 =
 * [NEW] Plugin renamed from “Language Attribute for Container Blocks” to “Language Attribute for Container Blocks and Pages/Posts”
 * [NEW] Set the page/post language at the document level: a new “Page Language” panel in the Document Settings sidebar allows overriding the HTML `lang` and `dir` attributes for a specific page or post, independently of the website’s default language
