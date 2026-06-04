@@ -154,6 +154,10 @@ const PageLanguageControls = () => {
 		( select ) => select( 'core/editor' ).getCurrentPostType(),
 		[]
 	);
+	const postId = useSelect(
+		( select ) => select( 'core/editor' ).getCurrentPostId(),
+		[]
+	);
 	const editablePostTypes = window.nakedCatPluginsLangAttributeBlocks?.editablePostTypes || [];
 	const isEditablePostType = !! postType && editablePostTypes.includes( postType );
 	const isTemplateEditor = postType === 'wp_template';
@@ -181,7 +185,8 @@ const PageLanguageControls = () => {
 		},
 		[ templateEntityId ]
 	);
-	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
+	const [ meta, setMeta ] = useEntityProp( 'postType', postType || 'post', 'meta', postId );
+	const safeMeta = meta && typeof meta === 'object' ? meta : {};
 
 	const pageLang = ( meta?._nakedcatplugins_page_lang ?? '' ).trim();
 	const pageDir = meta?._nakedcatplugins_page_dir ?? 'ltr';
@@ -198,7 +203,7 @@ const PageLanguageControls = () => {
 		? __( "Valid language code for this template, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute on all posts set to this template, unless overridden at the post level", 'lang-attribute-blocks' )
 		: __( "Valid language code for this page/post, like “fr” or “pt-PT”, if different from the website's main language (shown as a placeholder) - This overrides the HTML language attribute", 'lang-attribute-blocks' );
 
-	if ( ! isEditablePostType ) {
+	if ( ! isEditablePostType || postId === undefined || postId === null ) {
 		return null;
 	}
 
@@ -210,7 +215,7 @@ const PageLanguageControls = () => {
 			<TextControl
 				label={ __( 'Language Code', 'lang-attribute-blocks' ) }
 				value={ pageLang }
-				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_lang: value.trim() } ) }
+				onChange={ ( value ) => setMeta( { ...safeMeta, _nakedcatplugins_page_lang: value.trim() } ) }
 				placeholder={ fieldPlaceholder }
 				help={ fieldHelpText }
 			/>
@@ -221,7 +226,7 @@ const PageLanguageControls = () => {
 					{ label: __( 'Left to right', 'lang-attribute-blocks' ), value: 'ltr' },
 					{ label: __( 'Right to left', 'lang-attribute-blocks' ), value: 'rtl' },
 				]}
-				onChange={ ( value ) => setMeta( { ...meta, _nakedcatplugins_page_dir: value } ) }
+				onChange={ ( value ) => setMeta( { ...safeMeta, _nakedcatplugins_page_dir: value } ) }
 			/>
 		</PluginDocumentSettingPanel>
 	);
