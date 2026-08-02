@@ -24,7 +24,7 @@
 	<!-- Enable colors in report. -->
 	<arg name="colors"/>
 
-	<config name="minimum_supported_wp_version" value="5.9"/>
+	<config name="minimum_supported_wp_version" value="6.2"/>
 
 	<!-- WordPress Coding Standards -->
 	<rule ref="WordPress">

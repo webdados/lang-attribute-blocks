@@ -1,10 +1,10 @@
 === Language Attribute for Container Blocks and Pages/Posts ===
 Contributors: nakedcatplugins, webdados
 Tags: language, accessibility, block editor, Gutenberg, classic editor
-Requires at least: 5.9
+Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.2
-Stable tag: 3.1
+Stable tag: 3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -102,6 +102,9 @@ Here’s a [Gist example](https://gist.github.com/webdados/7179f5be4e224ba84867c
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage, and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/ce04f590-44d9-45f3-9411-9028e87d4725 )
 
 == Changelog ==
+
+= 3.2 - 2026-08-02 =
+* [FIX] Fatal error on WordPress 5.9-6.1 since the plugin relies on `WP_HTML_Tag_Processor`, only available from WordPress 6.2, bumped the declared minimum version to match
 
 = 3.1 - 2026-06-04 =
 * [NEW] Add a template language option in the Site Editor templates, used as the default page/post language when no page/post language is set
